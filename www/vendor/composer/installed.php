@@ -188,9 +188,9 @@
             'dev_requirement' => false,
         ),
         'roundcube/plugin-installer' => array(
-            'pretty_version' => '0.3.7',
-            'version' => '0.3.7.0',
-            'reference' => 'f77c307b7d4e4000cb423cc3fac69fb1a9187aad',
+            'pretty_version' => '0.3.8',
+            'version' => '0.3.8.0',
+            'reference' => '4547fee8077db1ec4cbf6d55ef9d6c4e116f69d0',
             'type' => 'composer-plugin',
             'install_path' => __DIR__ . '/../roundcube/plugin-installer',
             'aliases' => array(),

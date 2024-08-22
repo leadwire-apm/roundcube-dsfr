@@ -1,5 +1,5 @@
 <?php
-    $config['plugins'] = ['elasticlayouts'];
+    $config['plugins'] = ['elasticlayouts', 'calendar'];
     $config['log_driver'] = 'stdout';
     $config['zipdownload_selection'] = true;
     $config['des_key'] = 'LzJVdcep3oQla/fCPzYcVWK0';
