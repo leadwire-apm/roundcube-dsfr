@@ -1,0 +1,351 @@
+<roundcube:add_label name="back" />
+<roundcube:add_label name="errortitle" />
+<roundcube:add_label name="options" />
+<roundcube:add_label name="plaintoggle" />
+<roundcube:add_label name="htmltoggle" />
+<roundcube:add_label name="previous" />
+<roundcube:add_label name="next" />
+<roundcube:add_label name="select" />
+<roundcube:add_label name="close" />
+<roundcube:add_label name="browse" />
+<roundcube:add_label name="choosefile" />
+<roundcube:add_label name="choosefiles" />
+<roundcube:object name="doctype" value="html5" />
+<roundcube:if condition="!env:framed || env:extwin" />
+<html>
+<roundcube:else />
+<html class="iframe">
+<roundcube:endif />
+
+<head>
+
+  <style>
+    /*** Messages list widget adapté au DSFR ***/
+
+
+    .messagelist>thead,
+    .messagelist .branch,
+    table.fixedcopy {
+      display: none;
+    }
+
+    .messagelist td {
+      border-left: 0;
+      width: 2em;
+      vertical-align: top;
+      font-size: 1rem !important;
+      color: var(--text-primary);
+      /* DSFR primary text color */
+    }
+
+    .messagelist td.subject {
+      width: 100%;
+      padding-right: 0;
+      display: flex;
+      flex-wrap: wrap;
+      color: var(--text-title-grey);
+      /* DSFR grey text color for titles */
+    }
+
+    .messagelist td.subject a {
+      text-decoration: none;
+      cursor: default;
+      color: var(--text-primary);
+      /* DSFR primary text color */
+    }
+
+    .messagelist td.subject span {
+      line-height: 2em;
+      font-size: 90%;
+      /* DSFR standard text size */
+    }
+
+    .messagelist td.subject span.size,
+    .messagelist td.subject span.date {
+      font-size: 90%;
+      color: var(--text-mention-grey);
+      /* DSFR mention grey */
+    }
+
+    .messagelist td.subject span.fromto {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+      font-size: 90%;
+      color: #000091;
+      ;
+      /* DSFR mention blue-france-sun-113
+ */
+      padding-left: 1.5em;
+      padding-right: 0.5rem;
+    }
+
+    .messagelist td.subject span.subject {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      user-select: none;
+      font-weight: bold;
+      /* DSFR bold titles */
+    }
+
+    .messagelist td.threads {
+      padding: 0 0 0 0.25rem;
+      width: 1.5em;
+    }
+
+    .messagelist td.flags {
+      width: 2.5em;
+    }
+
+    .messagelist td.flags>span {
+      height: 1.7em;
+      line-height: 1.7em;
+      display: block;
+    }
+
+    .messagelist td.flags>span.flag {
+      cursor: pointer;
+    }
+
+    .messagelist tr.flagged td,
+    .messagelist tr.flagged td.subject span.subject a,
+    .messagelist tr.flagged td.subject span.date,
+    .messagelist tr.flagged td.subject span.fromto {
+      color: var(--text-error);
+      /* DSFR error text color */
+    }
+
+    .messagelist tr.deleted td,
+    .messagelist tr.deleted td.subject span.subject a,
+    .messagelist tr.deleted td.subject span.date,
+    .messagelist tr.deleted td.subject span.fromto {
+      color: var(--text-title-grey);
+      /* DSFR grey text color */
+    }
+
+    .messagelist tr.unread td.subject span.subject {
+      font-weight: bold;
+      color: var(--text-primary);
+      /* DSFR primary text color */
+    }
+
+    .messagelist tr.unroot td.subject a {
+      text-decoration: none;
+    }
+
+    .messagelist tr.thread td.threads div:before {
+      content: "\f105";
+      cursor: pointer;
+      width: 1em;
+    }
+
+    .messagelist tr.thread.expanded td.threads div:before {
+      content: "\f107";
+    }
+
+    .messagelist td.subject span.msgicon.status:before {
+      content: "\f111";
+      cursor: pointer;
+      font-size: 0.4rem;
+      width: 1.1rem;
+      height: 2rem;
+    }
+
+    .messagelist td.subject span.msgicon.status.unread:before {
+      content: "\f111";
+      color: var(--text-highlight);
+      /* DSFR highlight color */
+      font-size: 0.5rem;
+    }
+
+    .messagelist td.subject span.msgicon.status.unreadchildren:before {
+      content: "\f111";
+      font-weight: 400;
+      font-size: 0.5rem;
+    }
+
+    .messagelist td.subject span.msgicon.status.replied:before {
+      content: "\f3e5";
+      font-weight: 900;
+      font-size: 1rem;
+    }
+
+    .messagelist td.subject span.msgicon.status.forwarded:before {
+      content: "\f064";
+      font-weight: 900;
+      font-size: 1rem;
+    }
+
+    .messagelist td.subject span.msgicon.status.replied.forwarded:before {
+      content: "\f3e5";
+      font-weight: 900;
+      font-size: 1rem;
+    }
+
+    .messagelist td.subject span.msgicon.status.replied.forwarded:after {
+      content: "\f064";
+      font-weight: 900;
+      font-size: 1rem;
+      opacity: 0.5;
+      margin: 0 -0.1em 0 -1.25em;
+    }
+
+    .messagelist tr.deleted td.subject span.msgicon.status:before {
+      content: "\f05e" !important;
+      font-weight: 900 !important;
+      font-size: 1rem;
+    }
+
+    .messagelist tr.deleted td.subject span.msgicon.status:after {
+      display: none !important;
+    }
+
+    .messagelist span.attachment span {
+      color: var(--text-mention-grey);
+      /* DSFR mention grey */
+    }
+
+    .messagelist span.attachment span:before {
+      margin: 0;
+      content: "\f0c6";
+    }
+
+    .messagelist span.attachment span.report:before {
+      content: "\f15c";
+      font-weight: 400;
+    }
+
+    .messagelist span.attachment span.encrypted:before {
+      content: "\f023";
+    }
+
+    .messagelist span.attachment span.vcard:before {
+      content: "\f007";
+      font-weight: 400;
+    }
+
+    .messagelist span.flagged:before {
+      content: "\f024";
+    }
+
+    .messagelist tr.flaggedroot:not(:hover) span.unflagged:before {
+      content: "\f024";
+      color: var(--text-title-grey);
+      /* DSFR grey text color */
+    }
+
+    .messagelist tr:hover span.unflagged:before {
+      content: "\f024";
+      font-weight: 400;
+    }
+
+    .messagelist span.size {
+      display: none;
+    }
+
+    .messagelist tr:hover span.date {
+      display: none;
+    }
+
+    .messagelist tr:hover span.size {
+      display: inline;
+    }
+
+    .messagelist.sort-size span.date {
+      display: none;
+    }
+
+    .messagelist.sort-size span.size {
+      display: inline;
+    }
+
+    .messagelist.sort-size tr:hover span.date {
+      display: inline;
+    }
+
+    .messagelist.sort-size tr:hover span.size {
+      display: none;
+    }
+
+    html.layout-phone .messagelist tr,
+    html.touch .messagelist tr {
+      position: relative;
+      display: flex;
+    }
+
+    html.layout-phone .messagelist td.selection,
+    html.touch .messagelist td.selection,
+    html.layout-phone .messagelist td.threads,
+    html.touch .messagelist td.threads {
+      line-height: 3.8em;
+    }
+
+    html.layout-phone .messagelist td.flags,
+    html.touch .messagelist td.flags {
+      position: absolute;
+      top: 0.25rem;
+      right: 0;
+      bottom: 0;
+      background-color: transparent;
+    }
+
+    html.layout-phone .messagelist td.flags .flag,
+    html.touch .messagelist td.flags .flag {
+      visibility: hidden;
+    }
+
+    html.layout-phone .messagelist td.subject,
+    html.touch .messagelist td.subject {
+      padding-right: 0.5em;
+    }
+
+    html.layout-phone .messagelist td.subject .subject,
+    html.touch .messagelist td.subject .subject {
+      padding-right: 1.5rem;
+    }
+  </style>
+
+  <roundcube:object name="meta" />
+  <roundcube:object name="links" />
+  <link rel="stylesheet" href="/deps/bootstrap.min.css">
+  <roundcube:if condition="config:devel_mode" />
+  <link rel="stylesheet/less" href="/styles/styles.less">
+  <roundcube:link rel="stylesheet/less" href="/styles/print.less" condition="env:action == 'print'" />
+  <script src="/deps/less.min.js" data-env="development"></script>
+  <roundcube:else />
+  <link rel="stylesheet" href="/styles/styles.css">
+  <roundcube:link rel="stylesheet" href="/styles/print.css" condition="env:action == 'print'" />
+  <roundcube:endif />
+  <roundcube:if condition="env:action != 'print' && !config:devel_mode && config:dark_mode_support" />
+  <script>
+    try {
+      if (document.cookie.indexOf('colorMode=dark') > -1
+        || (document.cookie.indexOf('colorMode=light') === -1 && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.className += ' dark-mode';
+      }
+    } catch (e) { }
+  </script>
+  <roundcube:endif />
+
+  <link rel="stylesheet" href="/dsfr/dist/dsfr.min.css">
+  <link rel="stylesheet" href="/dsfr/dist/utility/utility.min.css">
+
+  <script type="module" src="/dsfr/dist/dsfr.module.min.js"></script>
+  <script type="text/javascript" nomodule src="/dsfr/dist/dsfr.nomodule.min.js"></script>
+  <script type="text/javascript" nomodule src="/dsfr/src/main.js"></script>
+
+
+
+</head>
+
+
+
+
+
+<body class="task-<roundcube:exp expression=" env:error_task ?: env:task ?: 'error'"> action-<roundcube:exp expression="
+  asciiwords(env:action, true, '-' ) ?: 'none'">">
+  <roundcube:if condition="!env:framed || env:extwin" />
+  <div id="<roundcube:exp expression=" env:action=='print' ? 'print-' : ''">layout">
+    <roundcube:endif />

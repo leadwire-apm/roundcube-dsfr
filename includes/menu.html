@@ -1,0 +1,120 @@
+<header role="banner" class="fr-header">
+    <div class="fr-header__body">
+        <div class="fr-container">
+            <div class="fr-header__body-row">
+                <div class="fr-header__brand fr-enlarge-link">
+                    <div class="fr-header__brand-top">
+                        <!-- Logo du service -->
+                        <div class="fr-header__logo">
+                            <p class="fr-logo">
+                                République
+                                <br>Française
+                            </p>
+                        </div>
+                        <!-- Bouton du menu pour l'affichage mobile -->
+                        <div class="fr-header__navbar">
+                            <button class="fr-btn fr-btn--menu" aria-controls="fr-modal-menu" data-fr-opened="false" title="Menu">
+                                Menu
+                            </button>
+                        </div>
+                    </div>
+                    <div class="fr-header__service">
+                        <a href="/" title="Accueil - Webmail - Direction Générale des Finances Publiques">
+                            <p class="fr-header__service-title">
+                                Direction Générale des Finances Publiques
+                            </p>
+                        </a>
+                        <p class="fr-header__service-tagline">Webmail</p>
+                    </div>
+                </div>
+                <div class="fr-header__tools">
+                    <div class="fr-header__tools-links">
+                        <ul class="fr-btns-group">
+                            <!-- Lien vers les paramètres -->
+                            <li>
+                                <a href="./?_task=settings" class="fr-btn fr-icon-settings-5-fill" title="Paramètres">
+                                    Paramètres
+                                </a>
+                            </li>
+                            <!-- Bouton pour basculer entre les modes clair et sombre -->
+                            <li>
+                                <button class="fr-btn fr-icon-theme-fill" id="toggle-theme" aria-controls="fr-theme-modal" title="Changer le thème">
+                                    Mode sombre
+                                </button>
+                            </li>
+                            <!-- Lien pour la déconnexion -->
+                            <li>
+                                <a href="./?_task=logout" class="fr-btn fr-icon-logout-box-r-line" title="Se déconnecter">
+                                    Se déconnecter
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Menu principal (modal pour mobile) -->
+    <div class="fr-header__menu fr-modal" id="fr-modal-menu" aria-labelledby="fr-modal-menu-btn">
+        <div class="fr-container">
+            <button class="fr-btn fr-btn--close" aria-controls="fr-modal-menu" title="Fermer">
+                Fermer
+            </button>
+            <nav class="fr-nav" id="navigation" role="navigation" aria-label="Menu principal">
+                <ul class="fr-nav__list">
+                    <!-- Lien vers la rédaction d'un nouveau message -->
+                    <li>
+                        <roundcube:if condition="env:action == 'compose' and env:task == 'mail'" />
+                        <a href="./?_task=mail&_action=compose" title="Rédiger un nouveau message" class="fr-nav__link">
+                            <span class="fr-icon-draft-fill" aria-hidden="true"></span> Rédiger
+                        </a>
+                        <roundcube:else />
+                        <a href="./?_task=mail&_action=compose" title="Rédiger un nouveau message" class="fr-nav__link" data-fab="true" data-fab-task="mail" data-fab-action="none">
+                            <span class="fr-icon-draft-fill" aria-hidden="true"></span> Rédiger
+                        </a>
+                        <roundcube:endif />
+                    </li>
+                    <!-- Lien vers la boîte de réception -->
+                    <li>
+                        <roundcube:if condition="env:action == 'compose' and env:task == 'mail'" />
+                        <a href="./?_task=mail" class="fr-nav__link">
+                            <span class="fr-icon-mail-open-fill" aria-hidden="true"></span> Courrier
+                        </a>
+                        <roundcube:else />
+                        <a href="./?_task=mail" class="fr-nav__link mail selected">
+                            <span class="fr-icon-mail-open-fill" aria-hidden="true"></span> Courrier
+                        </a>
+                        <roundcube:endif />
+                    </li>
+                    <!-- Lien vers le carnet d'adresses -->
+                    <li>
+                        <a href="./?_task=addressbook" class="fr-nav__link contacts selected">
+                            <span class="fr-icon-team-fill" aria-hidden="true"></span> Contacts
+                        </a>
+                    </li>
+                    <!-- Lien vers le calendrier -->
+                    <li>
+                        <a href="./?_task=calendar" class="fr-nav__link calendar selected">
+                            <span class="fr-icon-calendar-fill" aria-hidden="true"></span> Calendrier
+                        </a>
+                    </li>
+
+                </ul>
+                
+            </nav>
+        </div>
+    </div>
+</header>
+
+<!-- Script pour gérer le changement de thème -->
+<script>
+    document.getElementById('toggle-theme').addEventListener('click', function() {
+        const theme = document.documentElement.getAttribute('data-fr-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-fr-theme', theme);
+        this.textContent = theme === 'dark' ? 'Mode clair' : 'Mode sombre';
+    });
+</script>
+
