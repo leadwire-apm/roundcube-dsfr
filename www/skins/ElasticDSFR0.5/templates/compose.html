@@ -1,0 +1,120 @@
+<roundcube:include file="includes/layout.html" />
+<roundcube:include file="includes/menu.html" condition="!env:extwin && !env:framed" />
+<roundcube:add_label name="recipientsadded" />
+<roundcube:add_label name="nocontactselected" />
+<roundcube:add_label name="recipient" />
+<roundcube:add_label name="insert" />
+<roundcube:add_label name="insertcontact" />
+<roundcube:add_label name="recipientedit" />
+
+
+<!-- Main layout using DSFR grid -->
+<div class="fr-container fr-grid-row">
+    <!-- Sidebar for options and attachments -->
+    <div id="layout-sidebar" class="fr-col-12 fr-col-md-3">
+        <div class="fr-sidemenu__inner">
+            <div class="header">
+                <a class="fr-btn fr-icon-arrow-left-line" href="#content"><span class="fr-ml-1v"><roundcube:label name="back" /></span></a>
+                <span class="fr-sidemenu__title"><roundcube:label name="optionsandattachments" /></span>
+            </div>
+            <!-- Attachments section -->
+            <div id="compose-attachments" class="fr-upload-group" role="region" aria-labelledby="aria-label-compose-attachments">
+                <h2 id="aria-label-compose-attachments" class="fr-h6"><roundcube:label name="attachments" /></h2>
+                <div class="fr-upload-group">
+                    <label class="fr-label" for="file-upload">
+                        <roundcube:label name="addattachment" />
+                        <span class="fr-hint-text">La taille de fichier maximum autorisée est 5.0 Mo.</span>
+                    </label>
+                    <input class="fr-upload" type="file" id="file-upload" name="file-upload" multiple>
+                </div>
+                <roundcube:object name="composeAttachmentList" id="attachment-list" class="fr-upload-group__list" />
+                <roundcube:object name="fileDropArea" id="compose-attachments" />
+            </div>
+            <!-- Compose options -->
+            <div id="compose-options" class="formcontent fr-mt-3w" role="region" aria-labelledby="aria-label-composeoptions">
+                <h2 id="aria-label-composeoptions" class="fr-h6"><roundcube:label name="arialabelcomposeoptions" /></h2>
+                <roundcube:container name="composeoptions" id="compose-options" />
+                <div class="form-group fr-form-group">
+                    <label for="compose-mdn" class="fr-label"><roundcube:label name="returnreceipt" /></label>
+                    <div class="fr-checkbox-group">
+                        <roundcube:object name="mdnCheckBox" id="compose-mdn" noform="true" tabindex="2" />
+                    </div>
+                </div>
+                <div class="form-group fr-form-group">
+                    <label for="compose-dsn" class="fr-label"><roundcube:label name="dsn" /></label>
+                    <div class="fr-checkbox-group">
+                        <roundcube:object name="dsnCheckBox" id="compose-dsn" noform="true" tabindex="2" />
+                    </div>
+                </div>
+                <div class="form-group fr-form-group">
+                    <label for="compose-priority" class="fr-label"><roundcube:label name="priority" /></label>
+                    <div class="fr-select-group">
+                        <roundcube:object name="prioritySelector" id="compose-priority" noform="true" tabindex="2" class="fr-select" />
+                    </div>
+                </div>
+                <div class="form-group fr-form-group">
+                    <label for="compose-store-target" class="fr-label"><roundcube:label name="savesentmessagein" /></label>
+                    <div class="fr-select-group">
+                        <roundcube:object name="storetarget" id="compose-store-target" noform="true" tabindex="2" class="fr-select" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main compose content -->
+    <div id="layout-content" class="fr-col-12 fr-col-md-9" role="main">
+        <div class="fr-container">
+            <!-- Toolbar for compose actions -->
+            <div class="header fr-toolbar" role="toolbar" aria-labelledby="aria-label-toolbar">
+                <a class="fr-btn fr-icon-menu-fill" href="#menu"><span class="fr-ml-1v"><roundcube:label name="menu" /></span></a>
+                <roundcube:button command="savedraft" type="link" class="fr-btn fr-icon-floppy-disk-line fr-btn--sm" label="save" title="savemessage" tabindex="2" />
+                <roundcube:button name="addattachment" type="link" class="fr-btn fr-icon-attachment-line fr-btn--sm" label="attach" title="addattachment" tabindex="2" />
+                <roundcube:button command="insert-sig" type="link" class="fr-btn fr-icon-signature-line fr-btn--sm " label="signature" title="insertsignature" tabindex="2" />
+                <roundcube:button command="spellcheck" type="link" class="fr-btn fr-icon-spellcheck-line fr-btn--sm" label="spellcheck" title="checkspelling" tabindex="2" />
+            </div>
+
+            <!-- Compose body and headers -->
+            <div id="compose-content" class="formcontainer content fr-mt-2w">
+                <!-- Message headers -->
+                <div id="compose-headers" role="region" aria-labelledby="aria-label-composeheaders">
+                    <h2 id="aria-label-composeheaders" class="fr-h6"><roundcube:label name="arialabelmessageheaders" /></h2>
+                    <div class="form-group fr-form-group">
+                        <label for="_from" class="fr-label"><roundcube:label name="from" /></label>
+                        <div class="fr-input-group">
+                            <roundcube:object name="composeHeaders" part="from" id="_from" form="form" tabindex="1" class="fr-input" />
+                            <a href="#identities" class="fr-btn fr-icon-edit-line" onclick="return rcmail.command('switch-task', 'settings/identities')" tabindex="1">
+                                <span class="fr-hint-text"><roundcube:label name="editidents" /></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group fr-form-group">
+                        <label for="_to" class="fr-label"><roundcube:label name="to" /></label>
+                        <div class="fr-input-group">
+                            <roundcube:object name="composeHeaders" part="to" id="_to" form="form" tabindex="1" aria-required="true" data-recipient-input="true" class="fr-input" />
+                            <a href="#add-contact" class="fr-btn fr-icon-user-plus-line" onclick="UI.recipient_selector('to')" tabindex="1">
+                                <span class="fr-hint-text"><roundcube:label name="addcontact" /></span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Additional header fields like CC, BCC, etc. -->
+                </div>
+
+                <!-- Message compose body -->
+                <div id="composebodycontainer" class="fr-mt-2w">
+                    <label for="composebody" class="fr-h6"><roundcube:label name="arialabelmessagebody" /></label>
+                    <roundcube:object name="composeBody" id="composebody" form="form" cols="70" rows="20" class="fr-input" tabindex="1" />
+                </div>
+            </div>
+            <div class="formbuttons fr-mt-3w">
+                <roundcube:button command="send" class="fr-btn fr-icon-mail-send-line" label="send" tabindex="1" />
+                <div class="float-right">
+                    <roundcube:button command="extwin" type="link" label="openinextwin" class="fr-btn fr-icon-open-in-new-line" tabindex="1" condition="!env:extwin" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<roundcube:object name="composeAttachmentForm" id="uploadform" mode="smart" />
+<roundcube:include file="includes/footer.html" />

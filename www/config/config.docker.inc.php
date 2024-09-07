@@ -6,6 +6,6 @@
   $config['smtp_server'] = 'tls://mailserver.leadwire.consulting';
   $config['smtp_port'] = '587';
   $config['temp_dir'] = '/tmp/roundcube-temp';
-  $config['skin'] = 'elastic';
+  $config['skin'] = 'ElasticDSFR0.5';
   $config['plugins'] = array_filter(array_unique(array_merge($config['plugins'], ['archive', 'zipdownload'])));
   
