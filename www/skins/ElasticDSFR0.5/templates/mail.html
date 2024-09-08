@@ -13,6 +13,13 @@
         overflow-y: auto;
         /* Active le défilement vertical si le contenu dépasse la hauteur maximale */
     }
+    .iframe-wrapper {
+        height: 44vh;
+    }
+    iframe {
+        height: 100%;
+        width: 100%;
+    }
 </style>
 
 <div class="fr-container">
@@ -35,7 +42,7 @@
                                     <h5 style="overflow: hidden; text-overflow: ellipsis; width: 100%;
                                         white-space: nowrap;">
                                         <roundcube:object name="username" />
-                                </h5>
+                                    </h5>
                                     <!-- Bouton pour les actions sur les dossiers -->
                                 </div>
                                 <br />
@@ -220,25 +227,28 @@
             <div class="fr-grid-row fr-grid-row--gutters">
                 <div class="fr-col">
                     <!-- Contenu du message sélectionné affiché ici -->
-                    <div id="layout-content"></div>
-                    <!-- <h2 id="aria-label-toolbar" class="fr-h6">
-                        <roundcube:label name="arialabeltoolbar" />
-                    </h2> -->
-                    <div class="fr-col fr-background-alt--blue-france fr-pb-2w fr-pt-2w fr-pt-lg-0" role="toolbar"
-                        aria-labelledby="aria-label-toolbar">
-                        <!-- Inclut le menu des options de courrier -->
-                        <roundcube:include file="includes/mail-menu.html" />
-                    </div>
-                    <!--
-                    <h2 id="aria-label-mailpreviewframe" class="fr-h6">
-                        <roundcube:label name="arialabelmailpreviewframe" />
-                    </h2>
-                    -->
-                    <!-- IFrame pour afficher le contenu du message -->
-                    <div>
-                        <roundcube:object name="contentframe" id="messagecontframe"
-                            aria-labelledby="aria-label-mailpreviewframe" src="env:blankpage"
-                            title="arialabelmailpreviewframe" />
+                    <div id="layout-content">
+                                <!-- <h2 id="aria-label-toolbar" class="fr-h6">
+                                <roundcube:label name="arialabeltoolbar" />
+                            </h2> -->
+                        <div class="fr-col fr-background-alt--blue-france fr-pb-2w fr-pt-2w fr-pt-lg-0" role="toolbar"
+                            aria-labelledby="aria-label-toolbar">
+                            <!-- Inclut le menu des options de courrier -->
+                            <roundcube:include file="includes/mail-menu.html" />
+                        </div>
+                                <!--
+                            <h2 id="aria-label-mailpreviewframe" class="fr-h6">
+                                <roundcube:label name="arialabelmailpreviewframe" />
+                            </h2>
+                            -->
+                        <!-- IFrame pour afficher le contenu du message -->
+                        <div class="iframe-wrapper">
+                            <roundcube:object name="contentframe" id="messagecontframe"
+                                aria-labelledby="aria-label-mailpreviewframe" src="env:blankpage"
+                                title="arialabelmailpreviewframe" 
+                                />
+
+                        </div>
                     </div>
                 </div>
             </div>

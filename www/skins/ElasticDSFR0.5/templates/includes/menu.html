@@ -44,7 +44,8 @@
                             </li>
                             <!-- Lien pour la déconnexion -->
                             <li>
-                                <a href="./?_task=logout" class="fr-btn fr-icon-logout-box-r-line" title="Se déconnecter">
+                                <a class="fr-btn fr-icon-logout-box-r-line" href="./?_task=logout" id="rcmbtn111" role="button" title="Se déconnecter" 
+                                onclick="return rcmail.command('switch-task','logout',this,event)" tabindex="0" aria-disabled="false">
                                     Se déconnecter
                                 </a>
                             </li>
