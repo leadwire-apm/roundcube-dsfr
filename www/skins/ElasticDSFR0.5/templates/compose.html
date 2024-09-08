@@ -9,17 +9,219 @@
 
 
 <!-- Main layout using DSFR grid -->
-<div class="fr-container fr-grid-row my-3">
+<div class="fr-container fr-grid-row">
+
+
+    <!-- Main compose content -->
+    <div id="layout-content" class="fr-col-12 fr-col-md-9" role="main">
+        <div class="fr-container">
+            <!-- Toolbar for compose actions -->
+            <div class="fr-col">
+                <div class="fr-grid-row--center fr-background-alt--blue-france fr-pb-2w fr-pt-2w fr-pt-lg-0">
+                    <!-- <span class="header-title"><roundcube:label name="compose" /></span> -->
+                    <div id="composestatusbar" class="fr-col-12 fr-col-lg-6"></div>
+                    <!-- toolbar -->
+
+                    <div id="messagetoolbar" role="toolbar" aria-labelledby="aria-label-toolbar">
+                        <!-- Option à revoir quand on checkera le responsive 
+                    <a class="options" href="#options" onclick="UI.show_sidebar()" data-hidden="big">
+                        <span class="inner"><roundcube:label name="optionsandattachments"></span>
+                    </a>
+                    Option à revoir quand on checkera le responsive -->
+
+                        <button class="fr-btn fr-btn--primary fr-btn--icon-left fr-icon-save-3-fill fr-btn--sm"
+                            onclick="rcmail.command('savedraft');">Enregistrer le brouillon</button>
+                        <button class="fr-btn fr-btn--primary fr-btn--icon-left fr-icon-attachment-line fr-btn--sm"
+                            onclick="if (!$(this).is('.disabled')) rcmail.upload_input('uploadform')">
+                            Joindre un fichier</button>
+
+                        <button
+                            class="fr-btn fr-btn--primary fr-btn--icon-left fr-icon-pen-nib-fill fr-btn--sm disabled"
+                            onclick="rcmail.command('signature');">Signature</button>
+                        <button class="fr-btn fr-btn--primary fr-btn--icon-left fr-icon-search-line fr-btn--sm "
+                            onclick="rcmail.command('spellcheck');">Orthographe</button>
+
+                        <!-- Réponses
+                    <roundcube:button command="insert-sig" type="link" class="signature disabled" classAct="signature"
+                        label="signature" title="insertsignature" tabindex="2" innerclass="inner" />
+                    <a href="#responses" class="responses" label="responses" title="<roundcube:label name='insertresponse' />" unselectable="on" tabindex="2" data-popup="responses-menu">
+                        <span class="inner"><roundcube:label name="responses" /></span>
+                    </a>
+                    -->
+                        <roundcube:if condition="!empty(env:spell_langs)" />
+                        <span class="dropbutton">
+                            <button class="dropdown" tabindex="2" data-popup="spell-menu">
+                                <span class="fr-icon-translate-2" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                        <roundcube:endif />
+                        <span class="dropbutton" style="display:none">
+                            <roundcube:button command="compose-encrypted" type="link" class="encrypt disabled"
+                                classAct="encrypt" classSel="encrypt selected" innerclass="inner" label="encrypt"
+                                title="encryptmessagemailvelope" tabindex="2" />
+                            <a href="#encryption" id="encryption-menu-button" class="dropdown" tabindex="2"
+                                data-popup="encryption-menu">
+                                <span class="inner">
+                                    <roundcube:label name="encryptmessagemailvelope" />
+                                </span>
+                            </a>
+                        </span>
+                        <roundcube:container name="toolbar" id="compose-toolbar" />
+                    </div>
+                </div>
+                <!-- Main compose content -->
+                <div id="compose-content" class="fr-container">
+                    <!-- Email fields such as From, To, CC, BCC, Reply-To, Follow-Up-To -->
+                    <div class="fr-grid-row">
+                        <!-- From Field -->
+                        <div class="fr-col-12 fr-mb-2w">
+                            <span>
+                                <label for="_from" class="fr-label">
+                                    <roundcube:label name="from" />
+                                </label>
+                                <roundcube:object name="composeHeaders" part="from" id="_from" form="form" tabindex="1"
+                                    class="fr-input" />
+                                <!--
+                            <button class="fr-btn fr-btn--icon-left fr-btn--sm fr-icon-edit-line" onclick="rcmail.command('switch-task', 'settings/identities', this)" title="<roundcube:label name='editidents' />" tabindex="1"></button>
+                        -->
+                            </span>
+                        </div>
+
+                        <!-- To Field -->
+                        <div class="fr-col-12 fr-mb-2w">
+                            <label for="_to" class="fr-label">
+                                <roundcube:label name="to" />
+                            </label>
+                            <div class="fr-input-group">
+                                <input type="text" id="_to" name="_to" class="fr-input " tabindex="1"
+                                    aria-required="true" />
+                                <!--
+                                    <button class="fr-btn fr-icon-user-plus-line fr-btn--sm" onclick="UI.recipient_selector('to')" title="<roundcube:label name='addcontact' />" tabindex="1"></button>
+                            -->
+                            </div>
+                        </div>
+
+                        <!-- Toggle Buttons for CC, BCC, Reply-To, Follow-Up-To -->
+                        <div class="fr-col-12">
+                            <button class="fr-btn fr-btn--secondary fr-btn--sm"
+                                onclick="toggleFields('additional-fields')" title="Afficher plus de champs"
+                                tabindex="1">Afficher plus de champs</button>
+                        </div>
+
+                        <!-- Additional Fields -->
+                        <div id="additional-fields" class="fr-col-12 fr-hidden">
+                            <!-- CC Field -->
+                            <div class="fr-col-12 fr-mb-2w">
+                                <label for="_cc" class="fr-label">
+                                    <roundcube:label name="cc" />
+                                </label>
+                                <div>
+                                    <input type="text" id="_cc" name="_cc" class="fr-input" tabindex="1" />
+                                    <!--
+                                    <button class="fr-btn fr-icon-user-plus-line fr-btn--sm" onclick="UI.recipient_selector('cc')" title="<roundcube:label name='addcontact' />" tabindex="1"></button>
+                                    <button class="fr-btn fr-icon-cross-line fr-btn--sm" onclick="UI.header_reset('_cc')" title="<roundcube:label name='delete' />" tabindex="1"></button>
+                                -->
+                                </div>
+                            </div>
+
+                            <!-- BCC Field -->
+                            <div class="fr-col-12 fr-mb-2w">
+                                <label for="_bcc" class="fr-label">
+                                    <roundcube:label name="bcc" />
+                                </label>
+                                <div class="fr-input-group">
+                                    <input type="text" id="_bcc" name="_bcc" class="fr-input" tabindex="1" />
+                                    <!--
+                                    <button class="fr-btn fr-icon-user-plus-line fr-btn--sm" onclick="UI.recipient_selector('bcc')" title="<roundcube:label name='addcontact' />" tabindex="1"></button>
+                                    <button class="fr-btn fr-icon-cross-line fr-btn--sm" onclick="UI.header_reset('_bcc')" title="<roundcube:label name='delete' />" tabindex="1"></button>
+                                -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        function toggleFields(id) {
+                            var element = document.getElementById(id);
+                            if (element) {
+                                element.classList.toggle('fr-hidden');
+                            }
+                        }
+                    </script>
+
+                    <!-- Subject Field -->
+                    <div class="fr-col-12 fr-mb-2w">
+                        <label for="compose-subject" class="fr-label">
+                            <roundcube:label name="subject" />
+                        </label>
+                        <input type="text" id="compose-subject" name="compose-subject" class="fr-input" tabindex="1" />
+                    </div>
+                </div>
+
+
+
+                <!-- Message compose body -->
+                <div id="composebodycontainer">
+                    <label for="composebody" class="voice">
+                        <roundcube:label name="arialabelmessagebody" />
+                    </label>
+                    <roundcube:object name="composeBody" id="composebody" form="form" cols="70" rows="15"
+                        class="form-control" tabindex="1" />
+                    <roundcube:if condition="!in_array('htmleditor', (array)config:dont_override)" />
+                    <roundcube:object name="editorSelector" id="editor-selector" editorid="composebody" noform="true"
+                        class="hidden" />
+                    <roundcube:endif />
+                </div>
+                </form>
+                <div class="formbuttons">
+                    <br/>
+                    <!-- Send Button -->
+                    <button class="fr-btn fr-btn--primary fr-btn--icon-left fr-icon-send-plane-fill" tabindex="1"
+                        onclick="rcmail.command('send', '', this)" title="<roundcube:label name='send' />">
+                            <roundcube:label name="send" />
+                        </span>
+                    </button>
+
+                    <!-- External Window Button (only shown if not in an external window) -->
+                    <div class="float-right">
+                        <button class="fr-btn fr-btn--secondary fr-btn--icon-left fr-fi-external-link-line" tabindex="1"
+                            onclick="rcmail.command('extwin', '', this)" style="display: none;"
+                            title="<roundcube:label name='openinextwin' />" condition="!env:extwin">
+                                <roundcube:label name="openinextwin" />
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <script>
+                    // This script ensures that the external window button is only shown when applicable
+                    document.addEventListener("DOMContentLoaded", function () {
+                        var extWinButton = document.querySelector('button[condition="!env:extwin"]');
+                        if (rcmail.env.extwin) {
+                            extWinButton.style.display = 'none';
+                        } else {
+                            extWinButton.style.display = 'inline-block';
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+
     <!-- Sidebar for options and attachments -->
     <div id="layout-sidebar" class="fr-col-12 fr-col-md-3">
-        <div class="fr-sidemenu__inner">
+        <div class="fr-col">
             <div class="header">
-                <a class="fr-btn fr-icon-arrow-left-line" href="#content"><span class="fr-ml-1v"><roundcube:label name="back" /></span></a>
-                <span class="fr-sidemenu__title"><roundcube:label name="optionsandattachments" /></span>
+                <span class="fr-sidemenu__title">
+                    <roundcube:label name="optionsandattachments" />
+                </span>
             </div>
             <!-- Attachments section -->
-            <div id="compose-attachments" class="fr-upload-group" role="region" aria-labelledby="aria-label-compose-attachments">
-                <h2 id="aria-label-compose-attachments" class="fr-h6"><roundcube:label name="attachments" /></h2>
+            <div id="compose-attachments" class="fr-upload-group" role="region"
+                aria-labelledby="aria-label-compose-attachments">
+                <h2 id="aria-label-compose-attachments" class="fr-h6">
+                    <roundcube:label name="attachments" />
+                </h2>
                 <div class="fr-upload-group">
                     <label class="fr-label" for="file-upload">
                         <roundcube:label name="addattachment" />
@@ -31,89 +233,52 @@
                 <roundcube:object name="fileDropArea" id="compose-attachments" />
             </div>
             <!-- Compose options -->
-            <div id="compose-options" class="formcontent fr-mt-3w" role="region" aria-labelledby="aria-label-composeoptions">
-                <h2 id="aria-label-composeoptions" class="fr-h6"><roundcube:label name="arialabelcomposeoptions" /></h2>
+            <div id="compose-options" class="formcontent fr-mt-3w" role="region"
+                aria-labelledby="aria-label-composeoptions">
+                <h2 id="aria-label-composeoptions" class="fr-h6">
+                    <roundcube:label name="arialabelcomposeoptions" />
+                </h2>
                 <roundcube:container name="composeoptions" id="compose-options" />
                 <div class="form-group fr-form-group">
-                    <label for="compose-mdn" class="fr-label"><roundcube:label name="returnreceipt" /></label>
+                    <label for="compose-mdn" class="fr-label">
+                        <roundcube:label name="returnreceipt" />
+                    </label>
                     <div class="fr-checkbox-group">
                         <roundcube:object name="mdnCheckBox" id="compose-mdn" noform="true" tabindex="2" />
                     </div>
                 </div>
                 <div class="form-group fr-form-group">
-                    <label for="compose-dsn" class="fr-label"><roundcube:label name="dsn" /></label>
+                    <label for="compose-dsn" class="fr-label">
+                        <roundcube:label name="dsn" />
+                    </label>
                     <div class="fr-checkbox-group">
                         <roundcube:object name="dsnCheckBox" id="compose-dsn" noform="true" tabindex="2" />
                     </div>
                 </div>
                 <div class="form-group fr-form-group">
-                    <label for="compose-priority" class="fr-label"><roundcube:label name="priority" /></label>
+                    <label for="compose-priority" class="fr-label">
+                        <roundcube:label name="priority" />
+                    </label>
                     <div class="fr-select-group">
-                        <roundcube:object name="prioritySelector" id="compose-priority" noform="true" tabindex="2" class="fr-select" />
+                        <roundcube:object name="prioritySelector" id="compose-priority" noform="true" tabindex="2"
+                            class="fr-select" />
                     </div>
                 </div>
                 <div class="form-group fr-form-group">
-                    <label for="compose-store-target" class="fr-label"><roundcube:label name="savesentmessagein" /></label>
+                    <label for="compose-store-target" class="fr-label">
+                        <roundcube:label name="savesentmessagein" />
+                    </label>
                     <div class="fr-select-group">
-                        <roundcube:object name="storetarget" id="compose-store-target" noform="true" tabindex="2" class="fr-select" />
+                        <roundcube:object name="storetarget" id="compose-store-target" noform="true" tabindex="2"
+                            class="fr-select" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Main compose content -->
-    <div id="layout-content" class="fr-col-12 fr-col-md-9" role="main">
-        <div class="fr-container">
-            <!-- Toolbar for compose actions -->
-            <div class="header fr-toolbar" role="toolbar" aria-labelledby="aria-label-toolbar">
-                <a class="fr-btn fr-icon-menu-fill" href="#menu"><span class="fr-ml-1v"><roundcube:label name="menu" /></span></a>
-                <roundcube:button command="savedraft" type="link" class="fr-btn fr-icon-floppy-disk-line fr-btn--sm" label="save" title="savemessage" tabindex="2" />
-                <roundcube:button name="addattachment" type="link" class="fr-btn fr-icon-attachment-line fr-btn--sm" label="attach" title="addattachment" tabindex="2" />
-                <roundcube:button command="insert-sig" type="link" class="fr-btn fr-icon-signature-line fr-btn--sm " label="signature" title="insertsignature" tabindex="2" />
-                <roundcube:button command="spellcheck" type="link" class="fr-btn fr-icon-spellcheck-line fr-btn--sm" label="spellcheck" title="checkspelling" tabindex="2" />
-            </div>
 
-            <!-- Compose body and headers -->
-            <div id="compose-content" class="formcontainer content fr-mt-2w">
-                <!-- Message headers -->
-                <div id="compose-headers" role="region" aria-labelledby="aria-label-composeheaders">
-                    <h2 id="aria-label-composeheaders" class="fr-h6"><roundcube:label name="arialabelmessageheaders" /></h2>
-                    <div class="form-group fr-form-group">
-                        <label for="_from" class="fr-label"><roundcube:label name="from" /></label>
-                        <div class="fr-input-group">
-                            <roundcube:object name="composeHeaders" part="from" id="_from" form="form" tabindex="1" class="fr-input" />
-                            <a href="#identities" class="fr-btn fr-icon-edit-line" onclick="return rcmail.command('switch-task', 'settings/identities')" tabindex="1">
-                                <span class="fr-hint-text"><roundcube:label name="editidents" /></span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="form-group fr-form-group">
-                        <label for="_to" class="fr-label"><roundcube:label name="to" /></label>
-                        <div class="fr-input-group">
-                            <roundcube:object name="composeHeaders" part="to" id="_to" form="form" tabindex="1" aria-required="true" data-recipient-input="true" class="fr-input" />
-                            <a href="#add-contact" class="fr-btn fr-icon-user-plus-line" onclick="UI.recipient_selector('to')" tabindex="1">
-                                <span class="fr-hint-text"><roundcube:label name="addcontact" /></span>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Additional header fields like CC, BCC, etc. -->
-                </div>
 
-                <!-- Message compose body -->
-                <div id="composebodycontainer" class="fr-mt-2w">
-                    <label for="composebody" class="fr-h6"><roundcube:label name="arialabelmessagebody" /></label>
-                    <roundcube:object name="composeBody" id="composebody" form="form" cols="70" rows="20" class="fr-input" tabindex="1" />
-                </div>
-            </div>
-            <div class="formbuttons fr-mt-3w">
-                <roundcube:button command="send" class="fr-btn fr-icon-mail-send-line" label="send" tabindex="1" />
-                <div class="float-right">
-                    <roundcube:button command="extwin" type="link" label="openinextwin" class="fr-btn fr-icon-open-in-new-line" tabindex="1" condition="!env:extwin" />
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <roundcube:object name="composeAttachmentForm" id="uploadform" mode="smart" />
