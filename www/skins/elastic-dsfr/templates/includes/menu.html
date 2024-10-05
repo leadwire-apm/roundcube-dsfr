@@ -38,9 +38,7 @@
                             </li>
                             <!-- Bouton pour basculer entre les modes clair et sombre -->
                             <li>
-                                <button class="fr-btn fr-icon-theme-fill" id="toggle-theme" aria-controls="fr-theme-modal" title="Changer le thème">
-                                    Mode sombre
-                                </button>
+                            <button class="fr-btn fr-icon-theme-fill" aria-controls="fr-theme-modal" data-fr-opened="false">Paramètres d'affichage</button>
                             </li>
                             <!-- Lien pour la déconnexion -->
                             <li>
@@ -110,12 +108,145 @@
     </div>
 </header>
 
+
+<!-- Modale pour les paramètres d'affichage -->
+<dialog id="fr-theme-modal" class="fr-modal" role="dialog" aria-labelledby="fr-theme-modal-title">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-btn--close fr-btn" aria-controls="fr-theme-modal" title="Fermer">
+                            Fermer
+                        </button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-theme-modal-title" class="fr-modal__title">
+                            Paramètres d’affichage
+                        </h1>
+                        <div id="fr-display" class="fr-display">
+                            <fieldset class="fr-fieldset" id="display-fieldset">
+                                <legend class="fr-fieldset__legend--regular fr-fieldset__legend">
+                                    Choisissez un thème pour personnaliser l’apparence du site.
+                                </legend>
+                                <div class="fr-fieldset__element">
+                                    <div class="fr-radio-group fr-radio-rich">
+                                        <input value="light" type="radio" id="fr-radios-theme-light" name="fr-radios-theme">
+                                        <label class="fr-label" for="fr-radios-theme-light">
+                                            Thème clair
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="fr-fieldset__element">
+                                    <div class="fr-radio-group fr-radio-rich">
+                                        <input value="dark" type="radio" id="fr-radios-theme-dark" name="fr-radios-theme">
+                                        <label class="fr-label" for="fr-radios-theme-dark">
+                                            Thème sombre
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="fr-fieldset__element">
+                                    <div class="fr-radio-group fr-radio-rich">
+                                        <input value="system" type="radio" id="fr-radios-theme-system" name="fr-radios-theme">
+                                        <label class="fr-label" for="fr-radios-theme-system">
+                                            Système
+                                            <span class="fr-hint-text">Utilise les paramètres système</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+
 <!-- Script pour gérer le changement de thème -->
 <script>
-    document.getElementById('toggle-theme').addEventListener('click', function() {
-        const theme = document.documentElement.getAttribute('data-fr-theme') === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-fr-theme', theme);
-        this.textContent = theme === 'dark' ? 'Mode clair' : 'Mode sombre';
+    document.addEventListener('DOMContentLoaded', function() {
+        // Bouton pour ouvrir la modale
+        const themeButton = document.querySelector('.fr-btn[aria-controls="fr-theme-modal"]');
+        const themeModal = document.getElementById('fr-theme-modal');
+        
+        // Boutons radio pour choisir le thème
+        const radioLight = document.getElementById('fr-radios-theme-light');
+        const radioDark = document.getElementById('fr-radios-theme-dark');
+        const radioSystem = document.getElementById('fr-radios-theme-system');
+
+        // Fonction pour ouvrir la modale
+        themeButton.addEventListener('click', function() {
+            themeModal.setAttribute('open', 'true');
+        });
+
+        // Fermer la modale
+        themeModal.querySelector('.fr-btn--close').addEventListener('click', function() {
+            themeModal.removeAttribute('open');
+        });
+
+        // Fonction pour définir les thèmes DSFR et Elastic
+        function setThemes(theme) {
+            // Mettre à jour DSFR
+            document.documentElement.setAttribute('data-fr-theme', theme);
+            
+            // Mettre à jour Elastic
+            document.body.setAttribute('data-theme', theme);
+
+            // Mettre à jour le cookie
+            document.cookie = `colorMode=${theme};path=/;max-age=31536000`;
+            
+            // Ajouter ou supprimer la classe dark-mode sur le <html>
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+            } else {
+                document.documentElement.classList.remove('dark-mode');
+            }
+        }
+
+        // Appliquer le thème système si choisi
+        function applySystemTheme() {
+            const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const theme = prefersDarkScheme ? 'dark' : 'light';
+            setThemes(theme);
+        }
+
+        // Vérifier le cookie et les préférences système pour initialiser le thème
+        function initializeTheme() {
+            const cookieTheme = getCookie('colorMode');
+            if (cookieTheme === 'dark') {
+                setThemes('dark');
+                radioDark.checked = true;
+            } else if (cookieTheme === 'light') {
+                setThemes('light');
+                radioLight.checked = true;
+            } else {
+                // Si aucun cookie, utiliser les préférences système
+                applySystemTheme();
+                radioSystem.checked = true;
+            }
+        }
+
+        // Fonction pour récupérer la valeur du cookie
+        function getCookie(name) {
+            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return match ? match[2] : null;
+        }
+
+        // Gestion des changements de thème via les boutons radio
+        radioLight.addEventListener('change', function() {
+            if (this.checked) setThemes('light');
+        });
+
+        radioDark.addEventListener('change', function() {
+            if (this.checked) setThemes('dark');
+        });
+
+        radioSystem.addEventListener('change', function() {
+            if (this.checked) applySystemTheme();
+        });
+
+        // Initialiser le thème à partir du cookie ou des préférences système
+        initializeTheme();
     });
 </script>
-
