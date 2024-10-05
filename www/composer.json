@@ -22,7 +22,8 @@
         "endroid/qr-code": "~1.6.5",
         "guzzlehttp/guzzle": "^6.5.5",
         "kolab/net_ldap3": "~1.1.1",
-        "symfony/polyfill-intl-idn": "1.19.0"
+        "symfony/polyfill-intl-idn": "1.19.0",
+        "sabre/vobject": "^4.5"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8.36 || ^5.7.21 || ^6 || ^7"
