@@ -1,0 +1,128 @@
+<roundcube:include file="includes/layout.html" />
+<roundcube:include file="includes/menu.html" />
+<roundcube:include file="includes/settings-menu.html" />
+
+<!-- Titre principal pour la gestion des dossiers -->
+<h1 class="fr-h1"><roundcube:label name="folders" /></h1>
+
+<!-- Menu latéral pour la navigation des dossiers -->
+<nav class="fr-sidemenu" role="navigation" aria-labelledby="fr-sidemenu-title">
+    <div class="fr-sidemenu__inner">
+        <!-- Bouton pour afficher/masquer le menu -->
+        <button class="fr-sidemenu__btn" aria-controls="fr-sidemenu-wrapper" aria-expanded="false">
+            <roundcube:label name="folders" />
+        </button>
+        <!-- Contenu du menu latéral -->
+        <div class="fr-collapse" id="fr-sidemenu-wrapper">
+            <div class="fr-sidemenu__title" id="fr-sidemenu-title">Dossiers</div>
+            <ul class="fr-sidemenu__list">
+                <li class="fr-sidemenu__item">
+                    <a class="fr-sidemenu__link" href="#settings">
+                        <roundcube:label name="settings" />
+                    </a>
+                </li>
+                <li class="fr-sidemenu__item">
+                    <a class="fr-sidemenu__link" href="#menu">
+                        <roundcube:label name="menu" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Liste des dossiers -->
+<div id="layout-list" class="fr-container--fluid" aria-labelledby="aria-label-folderslist">
+    <div class="fr-grid-row fr-grid-row--gutters">
+        <!-- Barre d'outils pour la navigation et les actions -->
+        <div class="fr-col-12 fr-mb-3v">
+            <a class="fr-btn fr-btn--icon-left fr-icon-arrow-left-line" href="#sidebar">
+                <roundcube:label name="settings" />
+            </a>
+            <span id="aria-label-folderslist" class="fr-h3"><roundcube:label name="folders" /></span>
+            <a class="fr-btn fr-btn--icon-right fr-icon-menu-fill" href="#list-menu">
+                <roundcube:label name="menu" />
+            </a>
+        </div>
+        
+        <!-- Formulaire de recherche pour les dossiers -->
+        <div class="fr-col-12">
+            <roundcube:object name="searchform" id="foldersearch" wrapper="searchbar menu" ariatag="h2"
+                label="foldersearchform" buttontitle="findfolders" options="foldersearchmenu" />
+        </div>
+        
+        <!-- Options de recherche -->
+        <div id="foldersearchmenu" class="fr-collapse" aria-labelledby="aria-label-search-menu" aria-controls="subscription-table">
+            <h3 id="aria-label-search-menu" class="fr-h4"><roundcube:label name="searchmod" /></h3>
+            <div class="fr-form-group">
+                <roundcube:object name="folderfilter" id="folderlist-filter" noheader="true" noevent="true" />
+            </div>
+            <div class="fr-btns-group">
+                <button type="button" class="fr-btn fr-btn--primary fr-icon-search-line"
+                    onclick="rcmail.folder_filter($('#folderlist-filter').val())">
+                    <roundcube:label name="search" />
+                </button>
+            </div>
+        </div>
+        
+        <!-- Scroller pour la liste des dossiers -->
+        <div class="fr-col-12 fr-mb-3v">
+            <div class="fr-scroller" tabindex="-1">
+                <roundcube:object name="foldersubscription" id="subscription-table"
+                    class="fr-table fr-table--no-gutter fr-table--striped" role="listbox" 
+                    data-list="subscription_list" data-label-msg="listempty" 
+                    data-label-ext="listusebutton" data-create-command="folder-create" />
+            </div>
+        </div>
+        
+        <!-- Affichage du quota -->
+        <div class="fr-col-12 fr-mb-3v">
+            <roundcube:if condition="env:quota" />
+                <div id="quotadisplay" class="fr-notice">
+                    <span class="fr-notice__content">
+                        <roundcube:label name="quota"></roundcube:label>
+                        <roundcube:object name="quotaDisplay" class="fr-badge" display="text" />
+                    </span>
+                </div>
+            <roundcube:endif />
+        </div>
+    </div>
+</div>
+
+<!-- Contenu principal pour les informations sur les dossiers -->
+<div id="layout-content" role="main" class="fr-container--fluid">
+    <h2 id="aria-label-toolbar" class="fr-h4"><roundcube:label name="arialabeltoolbar" /></h2>
+    <div class="fr-grid-row fr-grid-row--gutters" role="toolbar" aria-labelledby="aria-label-toolbar">
+        <div class="fr-col-12">
+            <a class="fr-btn fr-btn--icon-left fr-icon-arrow-left-line" href="#back">
+                <roundcube:label name="back" />
+            </a>
+            <span class="fr-h3"></span>
+        </div>
+        
+        <!-- Barre d'outils pour les actions sur les dossiers -->
+        <div class="fr-col-12">
+            <div id="folderstoolbar" class="fr-btns-group">
+                <button class="fr-btn fr-btn--secondary" data-command="create-folder">
+                    <roundcube:label name="create" />
+                </button>
+                <button class="fr-btn fr-btn--secondary" data-command="delete-folder">
+                    <roundcube:label name="delete" />
+                </button>
+                <button class="fr-btn fr-btn--secondary" data-command="purge">
+                    <roundcube:label name="empty" />
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Iframe pour afficher le contenu lié aux préférences -->
+    <div class="fr-col-12">
+        <div class="fr-responsive-iframe">
+            <roundcube:object name="contentframe" id="preferences-frame" src="env:blankpage" />
+        </div>
+    </div>
+</div>
+
+<!-- Inclusion du pied de page -->
+<roundcube:include file="includes/footer.html" />

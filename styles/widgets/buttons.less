@@ -1,0 +1,347 @@
+/**
+ * Roundcube Webmail styles for the Elastic skin
+ *
+ * Copyright (c) The Roundcube Dev Team
+ *
+ * The contents are subject to the Creative Commons Attribution-ShareAlike
+ * License. It is allowed to copy, distribute, transmit and to adapt the work
+ * by keeping credits to the original authors in the README.md file.
+ * See http://creativecommons.org/licenses/by-sa/3.0/ for details.
+ */
+
+/*** Buttons ***/
+
+.button.disabled {
+    opacity: .5;
+}
+
+a.button {
+    text-decoration: none !important;
+}
+
+/* font-icons */
+
+a.button.icon,
+button.btn {
+    &:before {
+        &:extend(.font-icon-class);
+    }
+    &.sidebar-menu:before,
+    &.toolbar-menu-button:before,
+    &.toolbar-list-button:before {
+        content: "";
+        width: 1em;
+    }
+    &.task-menu-button:before {
+        content: "";
+    }
+    &.back-sidebar-button:before,
+    &.back-content-button:before,
+    &.back-list-button:before {
+        content: "";
+    }
+    &.refresh:before {
+        content: "";
+    }
+    &.generate:before,
+    &.yes:before,
+    &.submit:before,
+    &.continue:before,
+    &.save:before {
+        content: "";
+    }
+    &.create:before {
+        content: "";
+    }
+    &.edit:before {
+        content: "";
+    }
+    &.qrcode:before {
+        content: "";
+    }
+    &.search:before {
+        content: "";
+    }
+    &.filter:before {
+        content: "";
+        font-size: 1.2em; // this icon is too-big in FA5
+    }
+    &.import:before {
+        content: "";
+    }
+    &.export:before {
+        content: "";
+    }
+    &.discard:before,
+    &.delete:before {
+        content: "";
+    }
+    &.next:before {
+        content: "";
+    }
+    &.restore:before {
+        content: "";
+    }
+    &.send:before,
+    &.bounce:before {
+        content: "";
+    }
+    &.attach:before {
+        content: "";
+    }
+    &.attach.vcard:before {
+        content: "";
+    }
+    &.no:before,
+    &.close:before,
+    &.cancel:before {
+        content: "";
+    }
+    &.back:before {
+        content: "";
+    }
+    &.remove:before {
+        content: "";
+    }
+    &.unlock:before {
+        content: "";
+    }
+    &.help:before {
+        content: "";
+    }
+    &.folders:before {
+        content: "";
+    }
+    &.options:before {
+        content: "";
+    }
+    &.tools:before,
+    &.settings:before {
+        content: "";
+    }
+    &.properties:before {
+        content: "";
+    }
+    &.selection:before {
+        content: "";
+    }
+    &.insert.recipient:before {
+        content: "";
+    }
+    &.encrypt:before {
+        content: "";
+    }
+    &.sign:before {
+        content: "";
+    }
+    &.sso:before {
+        content: "";
+    }
+    &.extwin:before {
+        content: "";
+    }
+}
+
+a.btn,
+button.btn {
+    &:before {
+        display: inline !important;
+        float: none !important;
+        vertical-align: middle;
+        margin-right: .4rem !important; // !important needed for a.btn
+    }
+
+    &.oauth.google:before,
+    &.oauth.outlook:before {
+        content: " ";
+        display: inline-block !important;
+        height: 1.5rem;
+        width: 1.5rem;
+        margin-right: .8rem !important;
+        background-size: 100% auto;
+    }
+
+    &.oauth.google:before {
+        background: url('../images/google-icon.svg') top left no-repeat;
+    }
+
+    &.oauth.outlook:before {
+        background: url('../images/microsoft-icon.svg') top left no-repeat;
+    }
+}
+
+a.button.icon {
+    &.dropdown:before {
+        content: "";
+        font-size: 1em;
+    }
+    & > span.inner {
+        display: none;
+    }
+}
+
+html.touch {
+    .btn:focus {
+        box-shadow: none !important;
+    }
+}
+
+@floating-action-button-size: 4rem;
+
+.floating-action-buttons {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    .footer:not(:empty) + & {
+        bottom: @layout-footer-small-height;
+    }
+
+    a.button {
+        display: block;
+        float: left;
+        width: @floating-action-button-size;
+        height: @floating-action-button-size;
+        border-radius: 50%;
+        background: none;
+        color: white;
+        opacity: .95;
+        box-shadow: 0 0 5px 5px lighten(@color-main, 35%);
+        margin: 0 1rem 1rem 0;
+
+        &:before {
+            &:extend(.font-icon-class);
+            content: "";
+            width: @floating-action-button-size;
+            height: @floating-action-button-size;
+            line-height: @floating-action-button-size;
+        }
+
+        &.compose {
+            &:before {
+                content: "";
+            }
+        }
+
+        .inner {
+            display: none;
+        }
+    }
+}
+
+/*** Bootstrap button style overrides ***/
+
+.btn {
+    &:focus {
+        box-shadow: 0 0 0 .2rem fade(@color-btn-primary-background, 30%);
+    }
+}
+
+.btn-link {
+    color: inherit;
+}
+
+.btn-secondary {
+    color: inherit;
+    background: none;
+    border-color: none;
+
+    &:focus {
+        background: none;
+        border-color: none;
+        box-shadow: 0 0 0 .2rem;
+    }
+
+    &:hover {
+        background: none;
+        border-color: none;
+    }
+
+    &.disabled,
+    &:disabled {
+        background: none;
+        border-color: none;
+    }
+
+    &:not(:disabled):not(.disabled) {
+        &:active,
+        &.active {
+            background: none;
+            border-color: none;
+
+            &:focus {
+                box-shadow: 0 0 0 .2rem;
+            }
+        }
+    }
+}
+
+.btn-primary {
+    color: inherit;
+    background: none;
+    border-color: none;
+
+    &:focus {
+        background: none;
+        border-color: none;
+        box-shadow: 0 0 0 .2rem;
+    }
+
+    &:hover {
+        background: none;
+        border-color: none;
+    }
+
+    &.disabled,
+    &:disabled {
+        background: none;
+        border-color: none;
+    }
+
+    &:not(:disabled):not(.disabled) {
+        &:active,
+        &.active {
+            background: none;
+            border-color: none;
+
+            &:focus {
+                box-shadow: 0 0 0 .2rem;
+            }
+        }
+    }
+}
+
+.btn-danger {
+    color: inherit;
+    background: none;
+    border-color: none;
+
+    &:focus {
+        background: none;
+        border-color: none;
+        box-shadow: 0 0 0 .2rem;
+    }
+
+    &:hover {
+        background: none;
+        border-color: none;
+    }
+
+    &.disabled,
+    &:disabled {
+        background: none;
+        border-color: none;
+    }
+
+    &:not(:disabled):not(.disabled) {
+        &:active,
+        &.active {
+            background: none;
+            border-color: none;
+
+            &:focus {
+                box-shadow: 0 0 0 .2rem;
+            }
+        }
+    }
+}
