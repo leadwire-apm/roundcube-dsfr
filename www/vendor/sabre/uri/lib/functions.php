@@ -236,14 +236,14 @@ function parse(string $uri): array
      */
     return
          $result + [
-            'scheme' => null,
-            'host' => null,
-            'path' => null,
-            'port' => null,
-            'user' => null,
-            'query' => null,
-            'fragment' => null,
-        ];
+             'scheme' => null,
+             'host' => null,
+             'path' => null,
+             'port' => null,
+             'user' => null,
+             'query' => null,
+             'fragment' => null,
+         ];
 }
 
 /**
@@ -304,7 +304,7 @@ function build(array $parts): string
  * If there is no dirname, it will return an empty string. Any / appearing at
  * the end of the string is stripped off.
  *
- * @return array<int, mixed>
+ * @return list<mixed>
  */
 function split(string $path): array
 {
