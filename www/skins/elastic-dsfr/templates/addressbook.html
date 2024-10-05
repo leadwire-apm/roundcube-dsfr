@@ -10,7 +10,7 @@
     }
 
     .iframe-wrapper {
-        height: 100vh;
+        height: 100%;
     }
 
     iframe {
@@ -265,12 +265,12 @@
                                     </button>
                                 </div>
                             </div>
-                            <h2 id="aria-label-contact-frame" class="fr-h6 fr-m-2w">
+                            <h2 id="aria-label-contact-frame" class="voice">
                                 <roundcube:label name="contactproperties" />
                             </h2>
                             <div class="iframe-wrapper">
                                 <roundcube:object name="contentframe" id="contact-frame" src="env:blankpage"
-                                    title="contactproperties" aria-labelledby="aria-label-contact-frame" />
+                                    title="contactproperties" aria-labelledby="aria-label-contact-frame" onload="setupIframeResize(this)"/>
                             </div>
                         </div>
                     </div>
@@ -482,7 +482,8 @@
                                 </button>
                             </li>
 
-                            <button type="button" class="fr-btn fr-btn--primary fr-btn-icon--left fr-btn--sm fr-icon-delete-line"
+                            <button type="button"
+                                class="fr-btn fr-btn--primary fr-btn-icon--left fr-btn--sm fr-icon-delete-line"
                                 title="<roundcube:label name='deletecontact' />" onclick="rcmail.command('delete')">
                                 <roundcube:label name="delete" />
                             </button>
@@ -525,3 +526,23 @@
 
 <!---->
 <roundcube:include file="includes/footer.html" />
+
+<script>
+function setupIframeResize(iframe) {
+            try {
+                resizeIframe(iframe);
+                const iframeDoc = iframe.contentWindow.document;
+                const observer = new MutationObserver(() => {
+                    resizeIframe(iframe);
+                });
+                observer.observe(iframeDoc.body, {
+                    childList: true, 
+                    subtree: true    
+                });
+            } catch (e) {
+            }
+        }
+        function resizeIframe(iframe) {
+            iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+        }
+</script>
