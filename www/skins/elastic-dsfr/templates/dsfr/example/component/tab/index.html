@@ -1,0 +1,1009 @@
+<!doctype html>
+<html lang="fr" data-fr-theme>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
+    <title>Onglets - Système de design</title>
+    <meta name="theme-color" content="#000091"><!-- Défini la couleur de thème du navigateur (Safari/Android) -->
+    <link rel="apple-touch-icon" href="../../../dist/favicon/apple-touch-icon.png"><!-- 180×180 -->
+    <link rel="icon" href="../../../dist/favicon/favicon.svg" type="image/svg+xml">
+    <!-- si favicon.ico peut etre placé à la racine du serveur, retirer la ligne ci-dessous -->
+    <link rel="shortcut icon" href="../../../dist/favicon/favicon.ico" type="image/x-icon"><!-- 32×32 -->
+    <link rel="manifest" href="../../../dist/favicon/manifest.webmanifest" crossorigin="use-credentials">
+    <!-- Modifier les chemins relatifs des favicons en fonction de la structure du projet -->
+    <!-- Dans le fichier manifest.webmanifest aussi, modifier les chemins vers les images -->
+    <link href="../../../dist/core/core.main.css" rel="stylesheet">
+    <link href="../../../dist/component/tab/tab.main.css" rel="stylesheet">
+    <link href="../../../dist/scheme/scheme.css" rel="stylesheet">
+    <link href="../../../dist/component/link/link.main.css" rel="stylesheet">
+    <link href="../../../dist/component/accordion/accordion.main.css" rel="stylesheet">
+    <link href="../../../dist/component/form/form.main.css" rel="stylesheet">
+    <link href="../../../dist/component/button/button.main.css" rel="stylesheet">
+    <link href="../../../dist/component/radio/radio.main.css" rel="stylesheet">
+    <link href="../../../dist/component/modal/modal.main.css" rel="stylesheet">
+    <link href="../../../dist/utility/utility.main.css" rel="stylesheet">
+    <link href="../../../dist/core/core.legacy.css" rel="stylesheet">
+    <link href="../../../dist/component/tab/tab.legacy.css" rel="stylesheet">
+    <link href="../../../dist/component/link/link.legacy.css" rel="stylesheet">
+    <link href="../../../dist/component/accordion/accordion.legacy.css" rel="stylesheet">
+    <link href="../../../dist/component/form/form.legacy.css" rel="stylesheet">
+    <link href="../../../dist/component/button/button.legacy.css" rel="stylesheet">
+    <link href="../../../dist/component/radio/radio.legacy.css" rel="stylesheet">
+    <link href="../../../dist/component/modal/modal.legacy.css" rel="stylesheet">
+    <link href="../../../dist/utility/utility.legacy.css" rel="stylesheet">
+    <link href="../../../dist/core/core.print.css" rel="stylesheet">
+    <link href="../../../dist/component/tab/tab.print.css" rel="stylesheet">
+    <link href="../../../dist/component/link/link.print.css" rel="stylesheet">
+    <link href="../../../dist/component/accordion/accordion.print.css" rel="stylesheet">
+    <link href="../../../dist/component/form/form.print.css" rel="stylesheet">
+    <link href="../../../dist/component/button/button.print.css" rel="stylesheet">
+    <link href="../../../dist/component/radio/radio.print.css" rel="stylesheet">
+    <link href="../../../dist/component/modal/modal.print.css" rel="stylesheet">
+    <link href="../../../dist/utility/utility.print.css" rel="stylesheet">
+    <style>
+        code[class*="language-"],
+        pre[class*="language-"] {
+            white-space: pre-wrap;
+        }
+
+        .example-controls {
+            z-index: 100000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1), 0 8px 16px -16px rgba(0, 0, 0, 0.32);
+        }
+
+        .example-controls>button {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .example-controls__content {
+            padding: 16px;
+            background-color: var(--background-elevated-white);
+        }
+
+        .example-controls .fr-collapse--expanded~[aria-expanded] {
+            display: none;
+        }
+
+        .example-controls .fr-collapse:not(.fr-collapse--expanded)~button:not([aria-expanded]) {
+            display: none;
+        }
+
+        .example-controls [class*="-form-group"] {
+            margin-bottom: 0;
+        }
+
+        .fr-display-button {
+            position: fixed;
+            bottom: 3.5rem;
+            right: 2rem;
+        }
+
+        @media screen and (-ms-high-contrast: active),
+        (-ms-high-contrast: none) {
+
+            /* IE10+ specific styles go here */
+            .example-controls {
+                display: none;
+            }
+        }
+
+    </style>
+    <script>
+    window['dsfr'] = {
+      // verbose: true,
+      // production: true,
+      // mode: 'manual',
+    };
+    
+  </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
+</head>
+
+<body id="top" class="fr-mb-12w">
+    <script type="module">
+    const e="system",t="dark",c="dark",o="data-fr-theme",a="data-fr-scheme",r=`:root[${o}], :root[${a}]`,m=()=>{document.documentElement.setAttribute(o,c),document.documentElement.style.colorScheme="dark"},n=()=>{window.matchMedia("(prefers-color-scheme: dark)").matches&&m()};(()=>{if(document.documentElement.matches(r)){const c=(()=>{try{return"localStorage"in window&&null!==window.localStorage}catch(e){return!1}})()?localStorage.getItem("scheme"):"",o=document.documentElement.getAttribute(a);switch(!0){case c===t:m();break;case c===e:n();break;case o===t:m();break;case o===e:n()}}})();
+
+  </script>
+    <span id="[url - à modifier]"></span>
+    <div class="fr-container fr-mt-2v fr-mb-8w">
+        <p class="fr-text--sm" style="float:right">DSFR v1.12.1</p>
+        <p>
+            <a class="fr-icon-arrow-left-line fr-link--icon-left fr-link" href="../">Retour</a>
+        </p>
+        <h1>Onglets (tab)</h1>
+        <p>Le composant onglet permet aux utilisateurs de naviguer dans différentes sections de contenu au sein d’une même page.</p>
+        <a href="https://www.systeme-de-design.gouv.fr/elements-d-interface/composants/onglet" target="_blank" rel="noopener external" title="[À MODIFIER - Intitulé] - nouvelle fenêtre">Documentation</a>
+    </div>
+    <div class="fr-mb-12w">
+        <div class="fr-container">
+            <div class="fr-grid-row fr-grid-row--center">
+                <div class="fr-col-md-8 fr-col-12">
+                    <h3>Onglets 4 éléments</h3>
+                    <div class="fr-mb-6v">
+                        <div class="fr-tabs">
+                            <ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]">
+                                <li role="presentation">
+                                    <button id="tabpanel-6830" class="fr-tabs__tab fr-icon-checkbox-circle-line fr-tabs__tab--icon-left" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6830-panel">Libellé onglet 1</button>
+                                </li>
+                                <li role="presentation">
+                                    <button id="tabpanel-6831" class="fr-tabs__tab fr-icon-checkbox-circle-line fr-tabs__tab--icon-left" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6831-panel">Libellé onglet 2</button>
+                                </li>
+                                <li role="presentation">
+                                    <button id="tabpanel-6832" class="fr-tabs__tab fr-icon-checkbox-circle-line fr-tabs__tab--icon-left" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6832-panel">Libellé onglet 3</button>
+                                </li>
+                                <li role="presentation">
+                                    <button id="tabpanel-6833" class="fr-tabs__tab fr-icon-checkbox-circle-line fr-tabs__tab--icon-left" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6833-panel">Libellé onglet 4</button>
+                                </li>
+                            </ul>
+                            <div id="tabpanel-6830-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6830" tabindex="0">
+                                <!-- données de test -->
+                                <div>
+                                    <h4 class="fr-h4">Contenu 1</h4>
+                                    <ul>
+                                        <li>list item<ul>
+                                                <li>list item niveau 2</li>
+                                                <li>list item niveau 2</li>
+                                            </ul>
+                                        </li>
+                                        <li>list item</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="tabpanel-6831-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6831" tabindex="0">
+                                <!-- données de test -->
+                                <div>
+                                    <h4 class="fr-h4">Contenu 2</h4>
+                                    <img class="fr-responsive-img" src="../../../example/img/placeholder.16x9.png" alt="" />
+                                    <!-- L’alternative de l’image (attribut alt) doit toujours être présente, sa valeur peut-être vide (image n’apportant pas de sens supplémentaire au contexte) ou non (porteuse de texte ou apportant du sens) selon votre contexte -->
+                                    <ul>
+                                        <li>list item</li>
+                                        <li>list item</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="tabpanel-6832-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6832" tabindex="0">
+                                <!-- données de test -->
+                                <div>
+                                    <h4 class="fr-h4">Contenu 3</h4>
+                                    <img class="fr-responsive-img" src="../../../example/img/placeholder.16x9.png" alt="" />
+                                    <!-- L’alternative de l’image (attribut alt) doit toujours être présente, sa valeur peut-être vide (image n’apportant pas de sens supplémentaire au contexte) ou non (porteuse de texte ou apportant du sens) selon votre contexte -->
+                                    <ul>
+                                        <li>list item<ul>
+                                                <li>list item niveau 2</li>
+                                            </ul>
+                                        </li>
+                                        <li>list item</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="tabpanel-6833-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6833" tabindex="0">
+                                <!-- données de test -->
+                                <div>
+                                    <h4 class="fr-h4">Contenu 4</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing, <a href="https://www.systeme-de-design.gouv.fr/" target="_blank">link test</a> incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et. Diam maecenas sed enim ut. Accumsan lacus vel facilisis volutpat est. Ut aliquam purus sit amet luctus. Lorem ipsum dolor sit amet consectetur adipiscing elit ut.</p>
+                                    <ul>
+                                        <li>list item</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fr-mb-12v">
+                        <section class="fr-accordion">
+                            <h3 class="fr-accordion__title">
+                                <button class="fr-accordion__btn" aria-expanded="false" aria-controls="snippet-6838">Extrait de code</button>
+                            </h3>
+                            <div class="fr-collapse" id="snippet-6838">
+                                <pre class=" language-html"><code>&lt;div class="fr-tabs"&gt;
+    &lt;ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]"&gt;
+        &lt;li role="presentation"&gt;
+            &lt;button id="tabpanel-6834" class="fr-tabs__tab fr-icon-checkbox-circle-line fr-tabs__tab--icon-left" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6834-panel"&gt;Libellé onglet 1&lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li role="presentation"&gt;
+            &lt;button id="tabpanel-6835" class="fr-tabs__tab fr-icon-checkbox-circle-line fr-tabs__tab--icon-left" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6835-panel"&gt;Libellé onglet 2&lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li role="presentation"&gt;
+            &lt;button id="tabpanel-6836" class="fr-tabs__tab fr-icon-checkbox-circle-line fr-tabs__tab--icon-left" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6836-panel"&gt;Libellé onglet 3&lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li role="presentation"&gt;
+            &lt;button id="tabpanel-6837" class="fr-tabs__tab fr-icon-checkbox-circle-line fr-tabs__tab--icon-left" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6837-panel"&gt;Libellé onglet 4&lt;/button&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;div id="tabpanel-6834-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6834" tabindex="0"&gt;
+        &lt;!-- données de test --&gt;
+    &lt;/div&gt;
+    &lt;div id="tabpanel-6835-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6835" tabindex="0"&gt;
+        &lt;!-- données de test --&gt;
+    &lt;/div&gt;
+    &lt;div id="tabpanel-6836-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6836" tabindex="0"&gt;
+        &lt;!-- données de test --&gt;
+    &lt;/div&gt;
+    &lt;div id="tabpanel-6837-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6837" tabindex="0"&gt;
+        &lt;!-- données de test --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                            </div>
+                        </section>
+                    </div>
+                    <h3>Onglets 2 éléments</h3>
+                    <div class="fr-mb-6v">
+                        <div class="fr-tabs">
+                            <ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]">
+                                <li role="presentation">
+                                    <button id="tabpanel-6839" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6839-panel">Libellé onglet 1</button>
+                                </li>
+                                <li role="presentation">
+                                    <button id="tabpanel-6840" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6840-panel">Libellé onglet 2</button>
+                                </li>
+                            </ul>
+                            <div id="tabpanel-6839-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6839" tabindex="0">
+                                <!-- données de test -->
+                                <div>
+                                    <h4 class="fr-h4">Contenu 1</h4>
+                                    <ul>
+                                        <li>list item<ul>
+                                                <li>list item niveau 2</li>
+                                                <li>list item niveau 2</li>
+                                            </ul>
+                                        </li>
+                                        <li>list item</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="tabpanel-6840-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6840" tabindex="0">
+                                <!-- données de test -->
+                                <div>
+                                    <h4 class="fr-h4">Contenu 2</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing, <a href="https://www.systeme-de-design.gouv.fr/" target="_blank">link test</a> incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et. Diam maecenas sed enim ut. Accumsan lacus vel facilisis volutpat est. Ut aliquam purus sit amet luctus. Lorem ipsum dolor sit amet consectetur adipiscing elit ut.</p>
+                                    <ul>
+                                        <li>list item</li>
+                                        <li>list item<ul>
+                                                <li>list item niveau 2</li>
+                                                <li>list item niveau 2</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fr-mb-12v">
+                        <section class="fr-accordion">
+                            <h3 class="fr-accordion__title">
+                                <button class="fr-accordion__btn" aria-expanded="false" aria-controls="snippet-6843">Extrait de code</button>
+                            </h3>
+                            <div class="fr-collapse" id="snippet-6843">
+                                <pre class=" language-html"><code>&lt;div class="fr-tabs"&gt;
+    &lt;ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]"&gt;
+        &lt;li role="presentation"&gt;
+            &lt;button id="tabpanel-6841" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6841-panel"&gt;Libellé onglet 1&lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li role="presentation"&gt;
+            &lt;button id="tabpanel-6842" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6842-panel"&gt;Libellé onglet 2&lt;/button&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;div id="tabpanel-6841-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6841" tabindex="0"&gt;
+        &lt;!-- données de test --&gt;
+    &lt;/div&gt;
+    &lt;div id="tabpanel-6842-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6842" tabindex="0"&gt;
+        &lt;!-- données de test --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                            </div>
+                        </section>
+                    </div>
+                    <h3>Onglets dans onglets</h3>
+                    <div class="fr-mb-6v">
+                        <div class="fr-tabs">
+                            <ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]">
+                                <li role="presentation">
+                                    <button id="tabpanel-6863" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6863-panel">Onglet principal 0</button>
+                                </li>
+                                <li role="presentation">
+                                    <button id="tabpanel-6864" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6864-panel">Onglet principal 1</button>
+                                </li>
+                            </ul>
+                            <div id="tabpanel-6863-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6863" tabindex="0">
+                                <div class="fr-tabs">
+                                    <ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]">
+                                        <li role="presentation">
+                                            <button id="tabpanel-6853" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6853-panel">Onglet imbriqué 0</button>
+                                        </li>
+                                        <li role="presentation">
+                                            <button id="tabpanel-6854" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6854-panel">Onglet imbriqué 1</button>
+                                        </li>
+                                        <li role="presentation">
+                                            <button id="tabpanel-6855" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6855-panel">Onglet imbriqué 2</button>
+                                        </li>
+                                    </ul>
+                                    <div id="tabpanel-6853-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6853" tabindex="0">
+                                        <div class="fr-tabs">
+                                            <ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]">
+                                                <li role="presentation">
+                                                    <button id="tabpanel-6844" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6844-panel">Libellé onglet 1</button>
+                                                </li>
+                                                <li role="presentation">
+                                                    <button id="tabpanel-6845" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6845-panel">Libellé onglet 2</button>
+                                                </li>
+                                            </ul>
+                                            <div id="tabpanel-6844-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6844" tabindex="0">
+                                                <!-- données de test -->
+                                                <div>
+                                                    <h4 class="fr-h4">Contenu 1</h4>
+                                                    <img class="fr-responsive-img" src="../../../example/img/placeholder.16x9.png" alt="" />
+                                                    <!-- L’alternative de l’image (attribut alt) doit toujours être présente, sa valeur peut-être vide (image n’apportant pas de sens supplémentaire au contexte) ou non (porteuse de texte ou apportant du sens) selon votre contexte -->
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing, <a href="https://www.systeme-de-design.gouv.fr/" target="_blank">link test</a> incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et. Diam maecenas sed enim ut. Accumsan lacus vel facilisis volutpat est. Ut aliquam purus sit amet luctus. Lorem ipsum dolor sit amet consectetur adipiscing elit ut.</p>
+                                                    <ul>
+                                                        <li>list item</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div id="tabpanel-6845-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6845" tabindex="0">
+                                                <!-- données de test -->
+                                                <div>
+                                                    <h4 class="fr-h4">Contenu 2</h4>
+                                                    <ul>
+                                                        <li>list item<ul>
+                                                                <li>list item niveau 2</li>
+                                                                <li>list item niveau 2</li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>list item</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tabpanel-6854-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6854" tabindex="0">
+                                        <div class="fr-tabs">
+                                            <ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]">
+                                                <li role="presentation">
+                                                    <button id="tabpanel-6846" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6846-panel">Libellé onglet 1</button>
+                                                </li>
+                                                <li role="presentation">
+                                                    <button id="tabpanel-6847" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6847-panel">Libellé onglet 2</button>
+                                                </li>
+                                                <li role="presentation">
+                                                    <button id="tabpanel-6848" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6848-panel">Libellé onglet 3</button>
+                                                </li>
+                                            </ul>
+                                            <div id="tabpanel-6846-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6846" tabindex="0">
+                                                <!-- données de test -->
+                                                <div>
+                                                    <h4 class="fr-h4">Contenu 1</h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing, <a href="https://www.systeme-de-design.gouv.fr/" target="_blank">link test</a> incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et. Diam maecenas sed enim ut. Accumsan lacus vel facilisis volutpat est. Ut aliquam purus sit amet luctus. Lorem ipsum dolor sit amet consectetur adipiscing elit ut.</p>
+                                                    <ul>
+                                                        <li>list item<ul>
+                                                                <li>list item niveau 2</li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div id="tabpanel-6847-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6847" tabindex="0">
+                                                <!-- données de test -->
+                                                <div>
+                                                    <h4 class="fr-h4">Contenu 2</h4>
+                                                    <img class="fr-responsive-img" src="../../../example/img/placeholder.16x9.png" alt="" />
+                                                    <!-- L’alternative de l’image (attribut alt) doit toujours être présente, sa valeur peut-être vide (image n’apportant pas de sens supplémentaire au contexte) ou non (porteuse de texte ou apportant du sens) selon votre contexte -->
+                                                    <ul>
+                                                        <li>list item<ul>
+                                                                <li>list item niveau 2</li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div id="tabpanel-6848-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6848" tabindex="0">
+                                                <!-- données de test -->
+                                                <div>
+                                                    <h4 class="fr-h4">Contenu 3</h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing, <a href="https://www.systeme-de-design.gouv.fr/" target="_blank">link test</a> incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et. Diam maecenas sed enim ut. Accumsan lacus vel facilisis volutpat est. Ut aliquam purus sit amet luctus. Lorem ipsum dolor sit amet consectetur adipiscing elit ut.</p>
+                                                    <ul>
+                                                        <li>list item</li>
+                                                        <li>list item</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tabpanel-6855-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6855" tabindex="0">
+                                        <div class="fr-tabs">
+                                            <ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]">
+                                                <li role="presentation">
+                                                    <button id="tabpanel-6849" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6849-panel">Libellé onglet 1</button>
+                                                </li>
+                                                <li role="presentation">
+                                                    <button id="tabpanel-6850" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6850-panel">Libellé onglet 2</button>
+                                                </li>
+                                                <li role="presentation">
+                                                    <button id="tabpanel-6851" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6851-panel">Libellé onglet 3</button>
+                                                </li>
+                                                <li role="presentation">
+                                                    <button id="tabpanel-6852" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6852-panel">Libellé onglet 4</button>
+                                                </li>
+                                            </ul>
+                                            <div id="tabpanel-6849-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6849" tabindex="0">
+                                                <!-- données de test -->
+                                                <div>
+                                                    <h4 class="fr-h4">Contenu 1</h4>
+                                                    <img class="fr-responsive-img" src="../../../example/img/placeholder.16x9.png" alt="" />
+                                                    <!-- L’alternative de l’image (attribut alt) doit toujours être présente, sa valeur peut-être vide (image n’apportant pas de sens supplémentaire au contexte) ou non (porteuse de texte ou apportant du sens) selon votre contexte -->
+                                                    <ul>
+                                                        <li>list item<ul>
+                                                                <li>list item niveau 2</li>
+                                                                <li>list item niveau 2</li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div id="tabpanel-6850-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6850" tabindex="0">
+                                                <!-- données de test -->
+                                                <div>
+                                                    <h4 class="fr-h4">Contenu 2</h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing, <a href="https://www.systeme-de-design.gouv.fr/" target="_blank">link test</a> incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et. Diam maecenas sed enim ut. Accumsan lacus vel facilisis volutpat est. Ut aliquam purus sit amet luctus. Lorem ipsum dolor sit amet consectetur adipiscing elit ut.</p>
+                                                    <ul>
+                                                        <li>list item</li>
+                                                        <li>list item</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div id="tabpanel-6851-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6851" tabindex="0">
+                                                <!-- données de test -->
+                                                <div>
+                                                    <h4 class="fr-h4">Contenu 3</h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing, <a href="https://www.systeme-de-design.gouv.fr/" target="_blank">link test</a> incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et. Diam maecenas sed enim ut. Accumsan lacus vel facilisis volutpat est. Ut aliquam purus sit amet luctus. Lorem ipsum dolor sit amet consectetur adipiscing elit ut.</p>
+                                                    <ul>
+                                                        <li>list item<ul>
+                                                                <li>list item niveau 2</li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>list item<ul>
+                                                                <li>list item niveau 2</li>
+                                                                <li>list item niveau 2</li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div id="tabpanel-6852-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6852" tabindex="0">
+                                                <!-- données de test -->
+                                                <div>
+                                                    <h4 class="fr-h4">Contenu 4</h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing, <a href="https://www.systeme-de-design.gouv.fr/" target="_blank">link test</a> incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et. Diam maecenas sed enim ut. Accumsan lacus vel facilisis volutpat est. Ut aliquam purus sit amet luctus. Lorem ipsum dolor sit amet consectetur adipiscing elit ut.</p>
+                                                    <ul>
+                                                        <li>list item</li>
+                                                        <li>list item</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tabpanel-6864-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6864" tabindex="0">
+                                <div class="fr-tabs">
+                                    <ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]">
+                                        <li role="presentation">
+                                            <button id="tabpanel-6861" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6861-panel">Onglet imbriqué 0</button>
+                                        </li>
+                                        <li role="presentation">
+                                            <button id="tabpanel-6862" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6862-panel">Onglet imbriqué 1</button>
+                                        </li>
+                                    </ul>
+                                    <div id="tabpanel-6861-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6861" tabindex="0">
+                                        <div class="fr-tabs">
+                                            <ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]">
+                                                <li role="presentation">
+                                                    <button id="tabpanel-6856" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6856-panel">Libellé onglet 1</button>
+                                                </li>
+                                                <li role="presentation">
+                                                    <button id="tabpanel-6857" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6857-panel">Libellé onglet 2</button>
+                                                </li>
+                                            </ul>
+                                            <div id="tabpanel-6856-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6856" tabindex="0">
+                                                <!-- données de test -->
+                                                <div>
+                                                    <h4 class="fr-h4">Contenu 1</h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing, <a href="https://www.systeme-de-design.gouv.fr/" target="_blank">link test</a> incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et. Diam maecenas sed enim ut. Accumsan lacus vel facilisis volutpat est. Ut aliquam purus sit amet luctus. Lorem ipsum dolor sit amet consectetur adipiscing elit ut.</p>
+                                                    <ul>
+                                                        <li>list item<ul>
+                                                                <li>list item niveau 2</li>
+                                                                <li>list item niveau 2</li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>list item</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div id="tabpanel-6857-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6857" tabindex="0">
+                                                <!-- données de test -->
+                                                <div>
+                                                    <h4 class="fr-h4">Contenu 2</h4>
+                                                    <img class="fr-responsive-img" src="../../../example/img/placeholder.16x9.png" alt="" />
+                                                    <!-- L’alternative de l’image (attribut alt) doit toujours être présente, sa valeur peut-être vide (image n’apportant pas de sens supplémentaire au contexte) ou non (porteuse de texte ou apportant du sens) selon votre contexte -->
+                                                    <ul>
+                                                        <li>list item</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tabpanel-6862-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6862" tabindex="0">
+                                        <div class="fr-tabs">
+                                            <ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]">
+                                                <li role="presentation">
+                                                    <button id="tabpanel-6858" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6858-panel">Libellé onglet 1</button>
+                                                </li>
+                                                <li role="presentation">
+                                                    <button id="tabpanel-6859" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6859-panel">Libellé onglet 2</button>
+                                                </li>
+                                                <li role="presentation">
+                                                    <button id="tabpanel-6860" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6860-panel">Libellé onglet 3</button>
+                                                </li>
+                                            </ul>
+                                            <div id="tabpanel-6858-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6858" tabindex="0">
+                                                <!-- données de test -->
+                                                <div>
+                                                    <h4 class="fr-h4">Contenu 1</h4>
+                                                    <ul>
+                                                        <li>list item</li>
+                                                        <li>list item</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div id="tabpanel-6859-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6859" tabindex="0">
+                                                <!-- données de test -->
+                                                <div>
+                                                    <h4 class="fr-h4">Contenu 2</h4>
+                                                    <img class="fr-responsive-img" src="../../../example/img/placeholder.16x9.png" alt="" />
+                                                    <!-- L’alternative de l’image (attribut alt) doit toujours être présente, sa valeur peut-être vide (image n’apportant pas de sens supplémentaire au contexte) ou non (porteuse de texte ou apportant du sens) selon votre contexte -->
+                                                    <ul>
+                                                        <li>list item<ul>
+                                                                <li>list item niveau 2</li>
+                                                                <li>list item niveau 2</li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>list item<ul>
+                                                                <li>list item niveau 2</li>
+                                                                <li>list item niveau 2</li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div id="tabpanel-6860-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6860" tabindex="0">
+                                                <!-- données de test -->
+                                                <div>
+                                                    <h4 class="fr-h4">Contenu 3</h4>
+                                                    <ul>
+                                                        <li>list item</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fr-mb-12v">
+                        <section class="fr-accordion">
+                            <h3 class="fr-accordion__title">
+                                <button class="fr-accordion__btn" aria-expanded="false" aria-controls="snippet-6886">Extrait de code</button>
+                            </h3>
+                            <div class="fr-collapse" id="snippet-6886">
+                                <pre class=" language-html"><code>&lt;div class="fr-tabs"&gt;
+    &lt;ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]"&gt;
+        &lt;li role="presentation"&gt;
+            &lt;button id="tabpanel-6884" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6884-panel"&gt;Onglet principal 0&lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li role="presentation"&gt;
+            &lt;button id="tabpanel-6885" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6885-panel"&gt;Onglet principal 1&lt;/button&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;div id="tabpanel-6884-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6884" tabindex="0"&gt;
+        &lt;div class="fr-tabs"&gt;
+            &lt;ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]"&gt;
+                &lt;li role="presentation"&gt;
+                    &lt;button id="tabpanel-6874" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6874-panel"&gt;Onglet imbriqué 0&lt;/button&gt;
+                &lt;/li&gt;
+                &lt;li role="presentation"&gt;
+                    &lt;button id="tabpanel-6875" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6875-panel"&gt;Onglet imbriqué 1&lt;/button&gt;
+                &lt;/li&gt;
+                &lt;li role="presentation"&gt;
+                    &lt;button id="tabpanel-6876" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6876-panel"&gt;Onglet imbriqué 2&lt;/button&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;div id="tabpanel-6874-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6874" tabindex="0"&gt;
+                &lt;div class="fr-tabs"&gt;
+                    &lt;ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]"&gt;
+                        &lt;li role="presentation"&gt;
+                            &lt;button id="tabpanel-6865" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6865-panel"&gt;Libellé onglet 1&lt;/button&gt;
+                        &lt;/li&gt;
+                        &lt;li role="presentation"&gt;
+                            &lt;button id="tabpanel-6866" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6866-panel"&gt;Libellé onglet 2&lt;/button&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                    &lt;div id="tabpanel-6865-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6865" tabindex="0"&gt;
+                        &lt;!-- données de test --&gt;
+                    &lt;/div&gt;
+                    &lt;div id="tabpanel-6866-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6866" tabindex="0"&gt;
+                        &lt;!-- données de test --&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div id="tabpanel-6875-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6875" tabindex="0"&gt;
+                &lt;div class="fr-tabs"&gt;
+                    &lt;ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]"&gt;
+                        &lt;li role="presentation"&gt;
+                            &lt;button id="tabpanel-6867" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6867-panel"&gt;Libellé onglet 1&lt;/button&gt;
+                        &lt;/li&gt;
+                        &lt;li role="presentation"&gt;
+                            &lt;button id="tabpanel-6868" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6868-panel"&gt;Libellé onglet 2&lt;/button&gt;
+                        &lt;/li&gt;
+                        &lt;li role="presentation"&gt;
+                            &lt;button id="tabpanel-6869" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6869-panel"&gt;Libellé onglet 3&lt;/button&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                    &lt;div id="tabpanel-6867-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6867" tabindex="0"&gt;
+                        &lt;!-- données de test --&gt;
+                    &lt;/div&gt;
+                    &lt;div id="tabpanel-6868-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6868" tabindex="0"&gt;
+                        &lt;!-- données de test --&gt;
+                    &lt;/div&gt;
+                    &lt;div id="tabpanel-6869-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6869" tabindex="0"&gt;
+                        &lt;!-- données de test --&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div id="tabpanel-6876-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6876" tabindex="0"&gt;
+                &lt;div class="fr-tabs"&gt;
+                    &lt;ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]"&gt;
+                        &lt;li role="presentation"&gt;
+                            &lt;button id="tabpanel-6870" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6870-panel"&gt;Libellé onglet 1&lt;/button&gt;
+                        &lt;/li&gt;
+                        &lt;li role="presentation"&gt;
+                            &lt;button id="tabpanel-6871" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6871-panel"&gt;Libellé onglet 2&lt;/button&gt;
+                        &lt;/li&gt;
+                        &lt;li role="presentation"&gt;
+                            &lt;button id="tabpanel-6872" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6872-panel"&gt;Libellé onglet 3&lt;/button&gt;
+                        &lt;/li&gt;
+                        &lt;li role="presentation"&gt;
+                            &lt;button id="tabpanel-6873" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6873-panel"&gt;Libellé onglet 4&lt;/button&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                    &lt;div id="tabpanel-6870-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6870" tabindex="0"&gt;
+                        &lt;!-- données de test --&gt;
+                    &lt;/div&gt;
+                    &lt;div id="tabpanel-6871-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6871" tabindex="0"&gt;
+                        &lt;!-- données de test --&gt;
+                    &lt;/div&gt;
+                    &lt;div id="tabpanel-6872-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6872" tabindex="0"&gt;
+                        &lt;!-- données de test --&gt;
+                    &lt;/div&gt;
+                    &lt;div id="tabpanel-6873-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6873" tabindex="0"&gt;
+                        &lt;!-- données de test --&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id="tabpanel-6885-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6885" tabindex="0"&gt;
+        &lt;div class="fr-tabs"&gt;
+            &lt;ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]"&gt;
+                &lt;li role="presentation"&gt;
+                    &lt;button id="tabpanel-6882" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6882-panel"&gt;Onglet imbriqué 0&lt;/button&gt;
+                &lt;/li&gt;
+                &lt;li role="presentation"&gt;
+                    &lt;button id="tabpanel-6883" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6883-panel"&gt;Onglet imbriqué 1&lt;/button&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;div id="tabpanel-6882-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6882" tabindex="0"&gt;
+                &lt;div class="fr-tabs"&gt;
+                    &lt;ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]"&gt;
+                        &lt;li role="presentation"&gt;
+                            &lt;button id="tabpanel-6877" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6877-panel"&gt;Libellé onglet 1&lt;/button&gt;
+                        &lt;/li&gt;
+                        &lt;li role="presentation"&gt;
+                            &lt;button id="tabpanel-6878" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6878-panel"&gt;Libellé onglet 2&lt;/button&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                    &lt;div id="tabpanel-6877-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6877" tabindex="0"&gt;
+                        &lt;!-- données de test --&gt;
+                    &lt;/div&gt;
+                    &lt;div id="tabpanel-6878-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6878" tabindex="0"&gt;
+                        &lt;!-- données de test --&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div id="tabpanel-6883-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6883" tabindex="0"&gt;
+                &lt;div class="fr-tabs"&gt;
+                    &lt;ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]"&gt;
+                        &lt;li role="presentation"&gt;
+                            &lt;button id="tabpanel-6879" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6879-panel"&gt;Libellé onglet 1&lt;/button&gt;
+                        &lt;/li&gt;
+                        &lt;li role="presentation"&gt;
+                            &lt;button id="tabpanel-6880" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6880-panel"&gt;Libellé onglet 2&lt;/button&gt;
+                        &lt;/li&gt;
+                        &lt;li role="presentation"&gt;
+                            &lt;button id="tabpanel-6881" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6881-panel"&gt;Libellé onglet 3&lt;/button&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                    &lt;div id="tabpanel-6879-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6879" tabindex="0"&gt;
+                        &lt;!-- données de test --&gt;
+                    &lt;/div&gt;
+                    &lt;div id="tabpanel-6880-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6880" tabindex="0"&gt;
+                        &lt;!-- données de test --&gt;
+                    &lt;/div&gt;
+                    &lt;div id="tabpanel-6881-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6881" tabindex="0"&gt;
+                        &lt;!-- données de test --&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                            </div>
+                        </section>
+                    </div>
+                    <h3>Accordéon dans onglets</h3>
+                    <div class="fr-mb-6v">
+                        <div class="fr-tabs">
+                            <ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]">
+                                <li role="presentation">
+                                    <button id="tabpanel-6889" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6889-panel">Libellé onglet 1</button>
+                                </li>
+                                <li role="presentation">
+                                    <button id="tabpanel-6890" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6890-panel">Libellé onglet 2</button>
+                                </li>
+                            </ul>
+                            <div id="tabpanel-6889-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6889" tabindex="0">
+                                <section class="fr-accordion">
+                                    <h3 class="fr-accordion__title">
+                                        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-6887">Libellé accordéon</button>
+                                    </h3>
+                                    <div class="fr-collapse" id="accordion-6887">
+                                        <!-- données de test -->
+                                        <div>
+                                            <h4 class="fr-h4">Contenu </h4>
+                                            <img class="fr-responsive-img" src="../../../example/img/placeholder.16x9.png" alt="" />
+                                            <!-- L’alternative de l’image (attribut alt) doit toujours être présente, sa valeur peut-être vide (image n’apportant pas de sens supplémentaire au contexte) ou non (porteuse de texte ou apportant du sens) selon votre contexte -->
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing, <a href="https://www.systeme-de-design.gouv.fr/" target="_blank">link test</a> incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et. Diam maecenas sed enim ut. Accumsan lacus vel facilisis volutpat est. Ut aliquam purus sit amet luctus. Lorem ipsum dolor sit amet consectetur adipiscing elit ut.</p>
+                                            <ul>
+                                                <li>list item</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div id="tabpanel-6890-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6890" tabindex="0">
+                                <section class="fr-accordion">
+                                    <h3 class="fr-accordion__title">
+                                        <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-6888">Libellé accordéon</button>
+                                    </h3>
+                                    <div class="fr-collapse" id="accordion-6888">
+                                        <!-- données de test -->
+                                        <div>
+                                            <h4 class="fr-h4">Contenu </h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing, <a href="https://www.systeme-de-design.gouv.fr/" target="_blank">link test</a> incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et. Diam maecenas sed enim ut. Accumsan lacus vel facilisis volutpat est. Ut aliquam purus sit amet luctus. Lorem ipsum dolor sit amet consectetur adipiscing elit ut.</p>
+                                            <ul>
+                                                <li>list item</li>
+                                                <li>list item</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fr-mb-12v">
+                        <section class="fr-accordion">
+                            <h3 class="fr-accordion__title">
+                                <button class="fr-accordion__btn" aria-expanded="false" aria-controls="snippet-6895">Extrait de code</button>
+                            </h3>
+                            <div class="fr-collapse" id="snippet-6895">
+                                <pre class=" language-html"><code>&lt;div class="fr-tabs"&gt;
+    &lt;ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]"&gt;
+        &lt;li role="presentation"&gt;
+            &lt;button id="tabpanel-6893" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6893-panel"&gt;Libellé onglet 1&lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li role="presentation"&gt;
+            &lt;button id="tabpanel-6894" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6894-panel"&gt;Libellé onglet 2&lt;/button&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;div id="tabpanel-6893-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6893" tabindex="0"&gt;
+        &lt;section class="fr-accordion"&gt;
+            &lt;h3 class="fr-accordion__title"&gt;
+                &lt;button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-6891"&gt;Libellé accordéon&lt;/button&gt;
+            &lt;/h3&gt;
+            &lt;div class="fr-collapse" id="accordion-6891"&gt;
+                &lt;!-- données de test --&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+    &lt;/div&gt;
+    &lt;div id="tabpanel-6894-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6894" tabindex="0"&gt;
+        &lt;section class="fr-accordion"&gt;
+            &lt;h3 class="fr-accordion__title"&gt;
+                &lt;button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-6892"&gt;Libellé accordéon&lt;/button&gt;
+            &lt;/h3&gt;
+            &lt;div class="fr-collapse" id="accordion-6892"&gt;
+                &lt;!-- données de test --&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                            </div>
+                        </section>
+                    </div>
+                    <h3>Onglets 100% largeur du viewport en mobile</h3>
+                    <div class="fr-mb-6v">
+                        <div class="fr-tabs fr-tabs--viewport-width">
+                            <ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]">
+                                <li role="presentation">
+                                    <button id="tabpanel-6896" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6896-panel">Libellé onglet 1</button>
+                                </li>
+                                <li role="presentation">
+                                    <button id="tabpanel-6897" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6897-panel">Libellé onglet 2</button>
+                                </li>
+                            </ul>
+                            <div id="tabpanel-6896-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6896" tabindex="0">
+                                <!-- données de test -->
+                                <div>
+                                    <h4 class="fr-h4">Contenu 1</h4>
+                                    <img class="fr-responsive-img" src="../../../example/img/placeholder.16x9.png" alt="" />
+                                    <!-- L’alternative de l’image (attribut alt) doit toujours être présente, sa valeur peut-être vide (image n’apportant pas de sens supplémentaire au contexte) ou non (porteuse de texte ou apportant du sens) selon votre contexte -->
+                                    <ul>
+                                        <li>list item</li>
+                                        <li>list item</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="tabpanel-6897-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6897" tabindex="0">
+                                <!-- données de test -->
+                                <div>
+                                    <h4 class="fr-h4">Contenu 2</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing, <a href="https://www.systeme-de-design.gouv.fr/" target="_blank">link test</a> incididunt, ut labore et dolore magna aliqua. Vitae sapien pellentesque habitant morbi tristique senectus et. Diam maecenas sed enim ut. Accumsan lacus vel facilisis volutpat est. Ut aliquam purus sit amet luctus. Lorem ipsum dolor sit amet consectetur adipiscing elit ut.</p>
+                                    <ul>
+                                        <li>list item</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fr-mb-12v">
+                        <section class="fr-accordion">
+                            <h3 class="fr-accordion__title">
+                                <button class="fr-accordion__btn" aria-expanded="false" aria-controls="snippet-6900">Extrait de code</button>
+                            </h3>
+                            <div class="fr-collapse" id="snippet-6900">
+                                <pre class=" language-html"><code>&lt;div class="fr-tabs fr-tabs--viewport-width"&gt;
+    &lt;ul class="fr-tabs__list" role="tablist" aria-label="[A modifier | nom du système d'onglet]"&gt;
+        &lt;li role="presentation"&gt;
+            &lt;button id="tabpanel-6898" class="fr-tabs__tab" tabindex="0" role="tab" aria-selected="true" aria-controls="tabpanel-6898-panel"&gt;Libellé onglet 1&lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li role="presentation"&gt;
+            &lt;button id="tabpanel-6899" class="fr-tabs__tab" tabindex="-1" role="tab" aria-selected="false" aria-controls="tabpanel-6899-panel"&gt;Libellé onglet 2&lt;/button&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;div id="tabpanel-6898-panel" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tabpanel-6898" tabindex="0"&gt;
+        &lt;!-- données de test --&gt;
+    &lt;/div&gt;
+    &lt;div id="tabpanel-6899-panel" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tabpanel-6899" tabindex="0"&gt;
+        &lt;!-- données de test --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button aria-controls="fr-theme-modal" data-fr-opened="false" style="z-index: 1600" id="button-6901" class="fr-display-button fr-background-default--grey fr-btn fr-btn--lg fr-icon-theme-fill fr-btn--secondary">Libellé bouton</button>
+    <dialog id="fr-theme-modal" class="fr-modal" aria-labelledby="fr-theme-modal-title">
+        <div class="fr-container fr-container--fluid fr-container-md">
+            <div class="fr-grid-row fr-grid-row--center">
+                <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+                    <div class="fr-modal__body">
+                        <div class="fr-modal__header">
+                            <button aria-controls="fr-theme-modal" id="button-6902" title="Fermer" class="fr-btn--close fr-btn">Fermer</button>
+                        </div>
+                        <div class="fr-modal__content">
+                            <h1 id="fr-theme-modal-title" class="fr-modal__title">
+                                Paramètres d’affichage
+                            </h1>
+                            <div id="fr-display" class="fr-display">
+                                <fieldset class="fr-fieldset" id="display-fieldset">
+                                    <legend class="fr-fieldset__legend--regular fr-fieldset__legend" id="display-fieldset-legend">
+                                        Choisissez un thème pour personnaliser l’apparence du site.
+                                    </legend>
+                                    <div class="fr-fieldset__element">
+                                        <div class="fr-radio-group fr-radio-rich">
+                                            <input value="light" type="radio" id="fr-radios-theme-light" name="fr-radios-theme">
+                                            <label class="fr-label" for="fr-radios-theme-light">
+                                                Thème clair
+                                            </label>
+                                            <div class="fr-radio-rich__pictogram">
+                                                <svg aria-hidden="true" class="fr-artwork" viewBox="0 0 80 80" width="80px" height="80px">
+                                                    <use class="fr-artwork-decorative" href="../../../dist/artwork/pictograms/environment/sun.svg#artwork-decorative"></use>
+                                                    <use class="fr-artwork-minor" href="../../../dist/artwork/pictograms/environment/sun.svg#artwork-minor"></use>
+                                                    <use class="fr-artwork-major" href="../../../dist/artwork/pictograms/environment/sun.svg#artwork-major"></use>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fr-fieldset__element">
+                                        <div class="fr-radio-group fr-radio-rich">
+                                            <input value="dark" type="radio" id="fr-radios-theme-dark" name="fr-radios-theme">
+                                            <label class="fr-label" for="fr-radios-theme-dark">
+                                                Thème sombre
+                                            </label>
+                                            <div class="fr-radio-rich__pictogram">
+                                                <svg aria-hidden="true" class="fr-artwork" viewBox="0 0 80 80" width="80px" height="80px">
+                                                    <use class="fr-artwork-decorative" href="../../../dist/artwork/pictograms/environment/moon.svg#artwork-decorative"></use>
+                                                    <use class="fr-artwork-minor" href="../../../dist/artwork/pictograms/environment/moon.svg#artwork-minor"></use>
+                                                    <use class="fr-artwork-major" href="../../../dist/artwork/pictograms/environment/moon.svg#artwork-major"></use>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fr-fieldset__element">
+                                        <div class="fr-radio-group fr-radio-rich">
+                                            <input value="system" type="radio" id="fr-radios-theme-system" name="fr-radios-theme">
+                                            <label class="fr-label" for="fr-radios-theme-system">
+                                                Système
+                                                <span class="fr-hint-text">Utilise les paramètres système</span>
+                                            </label>
+                                            <div class="fr-radio-rich__pictogram">
+                                                <svg aria-hidden="true" class="fr-artwork" viewBox="0 0 80 80" width="80px" height="80px">
+                                                    <use class="fr-artwork-decorative" href="../../../dist/artwork/pictograms/system/system.svg#artwork-decorative"></use>
+                                                    <use class="fr-artwork-minor" href="../../../dist/artwork/pictograms/system/system.svg#artwork-minor"></use>
+                                                    <use class="fr-artwork-major" href="../../../dist/artwork/pictograms/system/system.svg#artwork-major"></use>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </dialog>
+    <script type="module" src="../../../dist/core/core.module.js"></script>
+    <script type="module" src="../../../dist/component/tab/tab.module.js"></script>
+    <script type="module" src="../../../dist/scheme/scheme.module.js"></script>
+    <script type="module" src="../../../dist/component/accordion/accordion.module.js"></script>
+    <script type="module" src="../../../dist/component/modal/modal.module.js"></script>
+    <script type="module" src="../../../dist/component/display/display.module.js"></script>
+    <script type="text/javascript" nomodule src="../../../dist/legacy/legacy.nomodule.js"></script>
+    <script type="text/javascript" nomodule src="../../../dist/core/core.nomodule.js"></script>
+    <script type="text/javascript" nomodule src="../../../dist/component/tab/tab.nomodule.js"></script>
+    <script type="text/javascript" nomodule src="../../../dist/component/accordion/accordion.nomodule.js"></script>
+    <script type="text/javascript" nomodule src="../../../dist/component/modal/modal.nomodule.js"></script>
+    <script type="text/javascript" nomodule src="../../../dist/component/display/display.nomodule.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/plugins/toolbar/prism-toolbar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+</body>
+
+</html>

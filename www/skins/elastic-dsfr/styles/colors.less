@@ -1,0 +1,263 @@
+/**
+ * Roundcube Webmail styles for the Elastic skin
+ *
+ * Copyright (c) The Roundcube Dev Team
+ *
+ * The contents are subject to la Creative Commons Attribution-ShareAlike
+ * License. It is allowed to copy, distribute, transmit and to adapt the work
+ * by keeping credits to the original authors in the README.md file.
+ * See http://creativecommons.org/licenses/by-sa/3.0/ for details.
+ */
+
+/* Définition des couleurs avec des valeurs statiques */
+@color-main: #000091; /* Bleu France principal */
+@color-main-dark: #21213f;
+@color-black: #161616;
+@color-font:  #161616;
+@color-link: #000091;
+@color-link-hover: #424275;
+@color-border: #000091;
+@color-error: #e1000f; /* Rouge Marianne */
+@color-success: #00a95f; /* Vert Emeraude */
+@color-warning: #fc5d00; /* Orange terre battue */
+
+@color-black-shade-text: #a8a8a8;
+@color-black-shade-border: #939393;
+@color-black-shade-bg: #2f2f2f;
+
+/* Éléments de mise en page */
+@color-layout-border: #939393;
+@color-layout-header: #cecece;
+@color-layout-sidebar-background: #ffffff;
+@color-layout-list-background: #ffffff;
+@color-layout-content-background: #ffffff;
+@color-layout-header-background: #2a2a2a;
+@color-layout-footer-background: #ffffff;
+
+@color-layout-mobile-header-background: @color-layout-header-background;
+@color-layout-mobile-footer-background: @color-layout-header-background;
+
+/* Menu des tâches */
+@color-taskmenu-background: #1e1e1e;
+@color-taskmenu-button: #ffffff;
+@color-taskmenu-button-selected: @color-taskmenu-button;
+@color-taskmenu-button-action: @color-main;
+
+@color-taskmenu-button-selected-background: #3f3f3f;
+@color-taskmenu-button-action-background: transparent;
+
+@color-taskmenu-button-hover: #ffffff;
+@color-taskmenu-button-selected-hover: #ffffff;
+@color-taskmenu-button-action-hover: @color-main;
+
+@color-taskmenu-button-background-hover: #3f3f3f;
+@color-taskmenu-button-action-background-hover: #3f3f3f;
+@color-taskmenu-button-logout: @color-error;
+@color-taskmenu-button-logout-hover: @color-error;
+
+/* Barre d'outils */
+@color-toolbar-button: #161616;
+@color-toolbar-button-background-hover: #3f3f3f;
+
+@color-searchbar-background: #1d2437;
+
+/* Menu de la barre d'outils */
+@color-menu-hover: #ffffff;
+@color-menu-hover-background: @color-main;
+
+/* Listes */
+@color-list: #000000;
+@color-list-selected: #000091;
+@color-list-selected-background: #d0eaff;
+@color-list-flagged: @color-error;
+@color-list-deleted: #fddede;
+@color-list-secondary: #666666;
+@color-list-droptarget-background: #e3e3fd;
+@color-list-focus-indicator: #000091;
+
+@color-list-border: #2f2f2f;
+@color-list-badge: #ffffff;
+@color-list-badge-background: @color-main;
+@color-list-recent: #424275;
+@color-list-recent-badge: #ffffff;
+@color-list-recent-badge-background: @color-main;
+
+@color-list-pagenav: #a8a8a8;
+@color-list-icon: #666666;
+@color-list-unread-status: @color-warning;
+
+@color-attachmentlist-border: #e0e0e0;
+@color-attachmentlist-background: #f8f8f8;
+
+/* Couche de drag-n-drop */
+@color-drag-layer: #ffffff;
+@color-drag-layer-background: @color-taskmenu-background;
+@color-drag-layer-shadow: @color-black-shade-bg;
+
+/* Messages */
+@color-message: #000091;
+@color-message-border: transparent;
+@color-message-background: #e0f7fa;
+@color-message-text: #ffffff;
+@color-message-link: @color-main;
+@color-message-link-font-weight: normal;
+@color-message-information: @color-main;
+@color-message-success: @color-success;
+@color-message-warning: @color-warning;
+@color-message-error: @color-error;
+@color-message-loading: #3f3f3f;
+@color-message-information-text: #ffffff;
+@color-message-success-text: #ffffff;
+@color-message-warning-text: #161616;
+@color-message-error-text: #ffffff;
+@color-message-loading-text: #ffffff;
+@color-message-error-box: #d32f2f;
+@color-message-information-box: #0053b3;
+@color-message-success-box: #388e3c;
+@color-message-warning-box: #ffa000;
+@color-message-error-box-background: #ffebee;
+@color-message-information-box-background: #e3f2fd;
+@color-message-success-box-background: #e8f5e9;
+@color-message-warning-box-background: #fff8e1;
+
+/* Popovers (menus) */
+@color-popover-shadow: #2f2f2f;
+@color-popover-separator: #a8a8a8;
+@color-popover-separator-background: #2f2f2f;
+@color-popover-mobile-header: #ffffff;
+@color-popover-mobile-header-background: @color-main-dark;
+@color-popover-mobile-dropbutton-background: #c0c0c0;
+
+/* Dialogues */
+@color-dialog-overlay-background: #000000cc;
+@color-dialog-header: #161616;
+@color-dialog-header-border: #a8a8a8;
+
+@color-spinner-circle: #2f2f2f;
+@color-spinner-item: #a8a8a8;
+
+/* Formulaires */
+@color-input: #161616;
+@color-input-border: #cccccc;
+@color-input-border-focus: @color-main;
+@color-input-border-focus-shadow: #424275;
+@color-input-border-invalid: @color-error;
+@color-input-border-invalid-shadow: #e57373;
+@color-input-addon-background: #2f2f2f;
+@color-recipient-input-border: #cccccc;
+@color-recipient-input-background: #2f2f2f;
+@color-input-placeholder: #888888;
+
+@color-checkbox: @color-main;
+@color-checkbox-checked: @color-main;
+@color-checkbox-checked-disabled: #9e9e9e;
+@color-checkbox-focus: @color-main;
+@color-checkbox-focus-shadow: @color-input-border-focus-shadow;
+
+@color-form-hint: #a8a8a8;
+
+@color-image-upload-background: #f5f5f5;
+
+@color-btn-secondary: #ffffff;
+@color-btn-secondary-background: #e0e0e0;
+@color-btn-primary: #ffffff;
+@color-btn-primary-background: @color-main;
+@color-btn-danger: #ffffff;
+@color-btn-danger-background: @color-error;
+
+@color-quota-background: #ffffff;
+@color-quota-text: #a8a8a8;
+@color-quota-value: @color-main;
+@color-quota-value-warning: @color-error;
+
+@color-blockquote-background: #f5f5f5;
+@color-blockquote-0: #0053b3;
+@color-blockquote-1: #388e3c;
+@color-blockquote-2: #d32f2f;
+@color-blockquote-0-border: @color-blockquote-0;
+@color-blockquote-1-border: @color-blockquote-1;
+@color-blockquote-2-border: @color-blockquote-2;
+
+@color-mail-signature: #a8a8a8;
+@color-mail-headers: #a8a8a8;
+
+@color-messagepart-border: #e0e0e0;
+@color-messagepart-background: #f0f0f0;
+
+@color-spellcheck-link: @color-error;
+
+@color-table-border: @color-layout-border;
+@color-table-selected: @color-list-selected;
+@color-table-selected-background: @color-list-selected-background;
+
+/* Datepicker */
+@color-datepicker-border: @color-layout-border;
+@color-datepicker-font: @color-font;
+@color-datepicker-highlight: @color-main;
+@color-datepicker-highlight-background: #0053b3;
+@color-datepicker-active: #ffffff;
+@color-datepicker-active-background: @color-main;
+
+/* HTML editor */
+@color-editor-disabled-mask: #f5f5f5;
+
+/* Outils d'image */
+@color-image-tools: #ffffff;
+@color-image-tools-background: #002776;
+@color-image-tools-hover: #004299;
+
+/* Mode sombre */
+@color-dark-main: #002776;
+@color-dark-background: #1e1e1e;
+@color-dark-font: #cccccc;
+@color-dark-border: #666666;
+@color-dark-hint: #333333;
+@color-dark-information: #002776;
+@color-dark-success: #388e3c;
+@color-dark-warning: #ffa000;
+@color-dark-error: #d32f2f;
+
+@color-dark-list-selected: #002776;
+@color-dark-list-selected-background: #2e2e2e;
+@color-dark-list-badge: #cccccc;
+@color-dark-list-badge-background: #333333;
+@color-dark-list-deleted: #666666;
+@color-dark-list-droptarget-background: #ffa000;
+@color-dark-list-border: #2e2e2e;
+
+@color-dark-input: @color-dark-font;
+@color-dark-input-border: #666666;
+@color-dark-input-background: #1e1e1e;
+@color-dark-input-focus: #ffffff;
+@color-dark-input-border-focus: @color-dark-main;
+@color-dark-input-background-focus: #2e2e2e;
+@color-dark-input-addon-background: #444444;
+@color-dark-input-addon-background-focus: #555555;
+@color-dark-checkbox: @color-dark-border;
+@color-dark-checkbox-checked: @color-dark-main;
+
+@color-dark-btn: #cccccc;
+@color-dark-btn-primary-background: @color-dark-main;
+@color-dark-btn-secondary-background: @color-dark-border;
+@color-dark-btn-danger-background: @color-dark-error;
+
+@color-dark-dialog-overlay-background: #000000cc;
+
+@color-dark-popover-background: #1e1e1e;
+@color-dark-popover-border: #444444;
+
+@color-dark-message-information: @color-dark-information;
+@color-dark-message-success: @color-dark-success;
+@color-dark-message-warning: @color-dark-warning;
+@color-dark-message-error: @color-dark-error;
+@color-dark-message-loading: #666666;
+
+@color-dark-scrollbar-thumb: @color-dark-main;
+@color-dark-scrollbar-track: @color-dark-border;
+
+@color-dark-blockquote-0: @color-dark-main;
+@color-dark-blockquote-1: @color-dark-success;
+@color-dark-blockquote-2: @color-dark-error;
+@color-dark-blockquote-0-border: @color-dark-blockquote-0;
+@color-dark-blockquote-1-border: @color-dark-blockquote-1;
+@color-dark-blockquote-2-border: @color-dark-blockquote-2;

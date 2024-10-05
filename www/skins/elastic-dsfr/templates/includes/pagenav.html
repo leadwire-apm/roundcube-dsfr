@@ -1,0 +1,40 @@
+<nav role="navigation" class="fr-pagination" aria-label="Navigation par page">
+    <ul class="fr-pagination__list">
+        <!-- Bouton pour aller à la première page -->
+        <li class="fr-pagination__item">
+            <button onclick="rcmail.command('firstpage'); return false;" class="fr-pagination__link fr-pagination__link--first disabled" aria-disabled="true" title="Première page">
+                Première
+            </button>
+        </li>
+        <!-- Bouton pour aller à la page précédente -->
+        <li class="fr-pagination__item">
+            <button onclick="rcmail.command('previouspage'); return false;" class="fr-pagination__link fr-pagination__link--prev disabled" aria-disabled="true" title="Page précédente">
+                Précédente
+            </button>
+        </li>
+        <!-- Compteur de pages/messages -->
+        <li class="fr-pagination__item">
+            <span class="fr-pagination__link">
+                <roundcube:if condition="template:name == 'mail'">
+                    <roundcube:object name="messageCountDisplay" class="pagenav-text" aria-live="polite" aria-relevant="text" />
+                <roundcube:elseif condition="template:name == 'addressbook'">
+                    <roundcube:object name="recordsCountDisplay" label="fromtoshort" class="pagenav-text" aria-live="polite" aria-relevant="text" />
+                <roundcube:else>
+                    &nbsp; <!-- Espace pour autres templates -->
+                </roundcube:endif>
+            </span>
+        </li>
+        <!-- Bouton pour aller à la page suivante -->
+        <li class="fr-pagination__item">
+            <button onclick="rcmail.command('nextpage'); return false;" class="fr-pagination__link fr-pagination__link--next disabled" aria-disabled="true" title="Page suivante">
+                Suivante
+            </button>
+        </li>
+        <!-- Bouton pour aller à la dernière page -->
+        <li class="fr-pagination__item">
+            <button onclick="rcmail.command('lastpage'); return false;" class="fr-pagination__link fr-pagination__link--last disabled" aria-disabled="true" title="Dernière page">
+                Dernière
+            </button>
+        </li>
+    </ul>
+</nav>

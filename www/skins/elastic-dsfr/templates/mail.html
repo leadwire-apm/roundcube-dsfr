@@ -1,0 +1,429 @@
+<roundcube:include file="includes/layout.html" />
+<roundcube:include file="includes/menu.html" />
+
+<!-- Titre principal de la page -->
+<h1 class="voice">
+    <roundcube:label name="mail" />
+</h1>
+
+<style>
+    #messagelist-content {
+        max-height: 300px;
+        /* Hauteur maximale selon vos besoins */
+        overflow-y: auto;
+        /* Active le défilement vertical si le contenu dépasse la hauteur maximale */
+    }
+    .iframe-wrapper {
+        height: 44vh;
+    }
+    iframe {
+        height: 100%;
+        width: 100%;
+    }
+</style>
+
+<div class="fr-container">
+    <!-- Section principale contenant la liste des dossiers et le contenu principal -->
+    <div class="fr-grid-row">
+        <!-- Barre latérale contenant les dossiers -->
+        <div id="layout-sidebar" class="fr-col-12 fr-col-md-4">
+            <nav role="navigation" aria-label="Menu latéral"
+                class="fr-sidemenu fr-sidemenu--sticky-full-height fr-mb-0-5v" data-fr-js-sidemenu-actionee="true">
+                <div class="fr-sidemenu__inner fr-pt-12v fr-background-alt--blue-france">
+                    <button aria-controls="sidemenu-286" aria-expanded="false" class="fr-sidemenu__btn"
+                        data-fr-js-collapse-button="true">Dossiers</button>
+                    <div id="sidemenu-286" class="fr-collapse" data-fr-js-collapse="true">
+                        <ul class="fr-sidemenu__list" data-fr-js-sidemenu-list="true">
+                            <li class="fr-sidemenu__item" data-fr-js-sidemenu-item="true">
+                                <div>
+                                    <button class="fr-btn fr-btn--sm fr-icon-mail-fill" data-fr-opened="false"
+                                        aria-controls="fr-modal-mailboxoptions">Actions sur les dossiers</button>
+                                    <!-- Affichage du nom d'utilisateur -->
+                                    <h5 style="overflow: hidden; text-overflow: ellipsis; width: 100%;
+                                        white-space: nowrap;">
+                                        <roundcube:object name="username" />
+                                    </h5>
+                                    <!-- Bouton pour les actions sur les dossiers -->
+                                </div>
+                                <br />
+                                <!-- Liste des dossiers de l'utilisateur -->
+                                <div id="folderlist-content" class="scroller">
+                                    <roundcube:object name="mailboxlist" id="mailboxlist"
+                                        class="treelist listing folderlist" folder_filter="mail" unreadwrap="%s" />
+                                </div>
+                                <div class="fr-footer__bottom">
+                                    <!-- Affichage de l'utilisation du quota si applicable -->
+                                    <roundcube:if condition="env:quota" />
+                                    <div id="quotadisplay" class="fr-notice fr-notice--sm">
+                                        <span class="fr-notice__content">
+                                            <roundcube:label name="quota" />
+                                            <roundcube:object name="quotaDisplay" class="count" display="text" />
+                                        </span>
+                                    </div>
+                                    <roundcube:endif />
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+
+        <!-- Section contenant la liste des messages et leur aperçu -->
+        <div id="contenu" class="fr-col-12 fr-col-md-8">
+            <div>
+                <div class="fr-editor">
+                    <div class="fr-grid-row fr-grid-row--gutters">
+                        <div class="fr-col">
+                            <!-- En-tête de la liste des messages avec les boutons d'action -->
+                            <div id="messagelist-header"
+                                class="fr-container fr-background-alt--blue-france fr-pb-2w fr-pt-2w fr-pt-lg-0">
+                                <!-- Icone menu -->
+                                <span class="fr-icon-mail-fill" aria-hidden="true"></span>&emsp;
+                                <!-- Bouton pour sélectionner les messages avec apparition d'options -->
+                                <button id="selectmenu"
+                                    class="fr-btn fr-btn--primary fr-btn--icon-left fr-icon-cursor-fill fr-btn--sm"
+                                    onclick="toggleAdvancedSelect(); return false;" aria-expanded="false"
+                                    aria-controls="advanced-select-options">
+                                    <span>Sélectionner</span> <!-- Assuming the label "Sélectionner" -->
+                                </button>
+
+                                <script>
+                                    function toggleAdvancedSelect() {
+                                        var advancedOptions = document.getElementById('advanced-select-options');
+                                        var selectMenu = document.getElementById('selectmenu');
+                                        var isExpanded = selectMenu.getAttribute('aria-expanded') === 'true';
+
+                                        // Toggle display of advanced select options
+                                        advancedOptions.style.display = isExpanded ? 'none' : 'block';
+
+                                        // Update the aria-expanded attribute based on current state
+                                        selectMenu.setAttribute('aria-expanded', String(!isExpanded));
+                                    }
+                                </script>
+
+                                <!-- Bouton pour les options de gestion des threads si applicable -->
+                                <roundcube:if condition="env:threads" />
+                                <button
+                                    class="fr-btn fr-btn--primary fr-btn--icon-left fr-icon-discuss-fill fr-btn--sm disabled"
+                                    data-fr-opened="false" aria-controls="fr-modal-threadselect">
+                                    <roundcube:label name="threads" />
+                                </button>
+                                <roundcube:endif />
+                                <!-- Bouton pour les options de liste -->
+                                <button
+                                    class="fr-btn fr-btn--primary fr-btn--icon-left fr-icon-arrow-up-s-fill fr-btn--sm"
+                                    data-fr-opened="false" aria-controls="fr-modal-listoptions">
+                                    Tri
+                                </button>
+                                <!-- Bouton pour rafraîchir la liste des messages -->
+                                <roundcube:button command="checkmail" type="link"
+                                    class="fr-btn fr-btn--primary fr-icon-refresh-line fr-btn--sm" label="refresh"
+                                    title="checkmail" innerclass="inner" />
+                                <!-- Bouton pour afficher le menu -->
+                                <a class="fr-btn fr-btn--primary fr-icon-menu-fill fr-btn--sm" href="#list-menu"><span
+                                        class="inner">
+                                        <roundcube:label name="menu" />
+                                    </span></a>
+                            </div>
+                            <div>
+                                <div id="advanced-select-options" style="display: none;"
+                                    class="fr-container--fluid fr-background-alt--contrast-grey fr-pb-2w fr-pt-2w fr-pt-lg-0">
+                                    <!-- Options pour sélectionner des messages -->
+                                    <button class="fr-btn fr-btn--tertiary fr-btn--sm"
+                                        onclick="rcmail.command('select-all');">Tout
+                                        sélectionner</button>
+                                    <button class="fr-btn fr-btn--tertiary fr-btn--sm"
+                                        onclick="rcmail.command('select-all', 'page');">Page
+                                        courante</button>
+                                    <button class="fr-btn fr-btn--tertiary fr-btn--sm"
+                                        onclick="rcmail.command('select-all', 'unread');">Non lus</button>
+                                    <button class="fr-btn fr-btn--tertiary fr-btn--sm"
+                                        onclick="rcmail.command('select-all', 'flagged');">Marqués</button>
+                                    <button class="fr-btn fr-btn--tertiary fr-btn--sm"
+                                        onclick="rcmail.command('select-all', 'invert');">Inverser</button>
+                                    <button class="fr-btn fr-btn--tertiary fr-btn--sm"
+                                        onclick="rcmail.command('select-all', 'none');">Aucun</button>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Formulaire de recherche rapide dans les emails -->
+                            <div>
+                                <form class="fr-search-bar" role="search" id="mailsearchform" style="width: 100%;"
+                                    onsubmit="return quickSearch();">
+                                    <input type="search" id="search-input" name="search" class="fr-input"
+                                        placeholder="Rechercher dans les emails"
+                                        aria-label="Rechercher dans les emails" />
+                                    <button type="submit" class="fr-btn fr-btn--icon-only fr-icon-search-line"
+                                        title="Rechercher">
+                                    </button>
+                                    <button class="fr-btn fr-btn--tertiary fr-btn--sm fr-icon-arrow-up-s-fill"
+                                        id="searchmenu" aria-expanded="false" aria-controls="advanced-search-options"
+                                        onclick="toggleAdvancedSearch(); return false;">
+                                    </button>
+                                </form>
+
+
+                            </div>
+
+                            <!-- Options de recherche avancée (cachées par défaut) -->
+                            <div id="advanced-search-options" style="display: none;"
+                                class="fr-container--fluid fr-background-alt--blue-france fr-pb-2w fr-pt-2w fr-pt-lg-0">
+                                <!-- Ajouter ici les options avancées si nécessaire -->
+                                <label for="search-from" class="fr-label">De</label>
+                                <input type="text" id="search-from" name="from" class="fr-input"
+                                    placeholder="Exemple: exemple@domaine.com" />
+
+                                <label for="search-subject" class="fr-label">Objet</label>
+                                <input type="text" id="search-subject" name="subject" class="fr-input"
+                                    placeholder="Objet de l'email" />
+
+                                <label for="search-date" class="fr-label">Date</label>
+                                <input type="date" id="search-date" name="date" class="fr-input" />
+                            </div>
+
+                            <script>
+                                function quickSearch() {
+                                    var query = document.getElementById('search-input').value;
+
+                                    // Appel de la commande Roundcube pour effectuer la recherche
+                                    rcmail.command('search', query);
+
+                                    // Empêcher la soumission classique du formulaire
+                                    return false;
+                                }
+
+                                function toggleAdvancedSearch() {
+                                    var advancedOptions = document.getElementById('advanced-search-options');
+                                    var searchMenu = document.getElementById('searchmenu');
+                                    var isExpanded = searchMenu.getAttribute('aria-expanded') === 'true';
+
+                                    // Afficher ou masquer les options de recherche avancée
+                                    advancedOptions.style.display = isExpanded ? 'none' : 'block';
+
+                                    // Mettre à jour l'attribut aria-expanded
+                                    searchMenu.setAttribute('aria-expanded', !isExpanded);
+                                }
+                            </script>
+                            <!-- Liste des messages affichée ici -->
+
+                            <div id="messagelist-content" class="scroller" tabindex="-1">
+                                <h2 id="aria-label-messagelist" class="voice">
+                                    <roundcube:label name="arialabelmessagelist" />
+                                </h2>
+                                <roundcube:object name="messages" id="messagelist"
+                                    class="listing messagelist sortheader fixedheader"
+                                    aria-labelledby="aria-label-messagelist" data-list="message_list"
+                                    data-label-msg="listempty" />
+                            </div>
+                            <!-- Pagination pour la liste des messages -->
+                            <roundcube:include file="includes/pagenav.html" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fr-grid-row fr-grid-row--gutters">
+                <div class="fr-col">
+                    <!-- Contenu du message sélectionné affiché ici -->
+                    <div id="layout-content">
+                                <!-- <h2 id="aria-label-toolbar" class="fr-h6">
+                                <roundcube:label name="arialabeltoolbar" />
+                            </h2> -->
+                        <div class="fr-col fr-background-alt--blue-france fr-pb-2w fr-pt-2w fr-pt-lg-0" role="toolbar"
+                            aria-labelledby="aria-label-toolbar">
+                            <!-- Inclut le menu des options de courrier -->
+                            <roundcube:include file="includes/mail-menu.html" />
+                        </div>
+                                <!--
+                            <h2 id="aria-label-mailpreviewframe" class="fr-h6">
+                                <roundcube:label name="arialabelmailpreviewframe" />
+                            </h2>
+                            -->
+                        <!-- IFrame pour afficher le contenu du message -->
+                        <div class="iframe-wrapper">
+                            <roundcube:object name="contentframe" id="messagecontframe"
+                                aria-labelledby="aria-label-mailpreviewframe" src="env:blankpage"
+                                title="arialabelmailpreviewframe" 
+                                />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modale pour les options de la liste -->
+<dialog aria-labelledby="fr-modal-listoptions-title" id="fr-modal-listoptions" class="fr-modal" role="dialog">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-4">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-btn--close fr-btn" aria-controls="fr-modal-listoptions">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-modal-listoptions-title" class="fr-modal__title">
+                            <span class="fr-icon-options-line fr-icon-arrow-up-s-line"></span>
+                            Option de tri
+                        </h1>
+                        <div class="form-group">
+                            <!-- Options pour trier la liste des messages -->
+                            <label for="listoptions-sortcol" class="fr-label">
+                                <roundcube:label name="listsorting" />
+                            </label>
+                            <div>
+                                <select id="listoptions-sortcol" name="sort_col" class="fr-select">
+                                    <option value="">
+                                        <roundcube:label name="nonesort" />
+                                    </option>
+                                    <option value="arrival">
+                                        <roundcube:label name="arrival" />
+                                    </option>
+                                    <option value="date">
+                                        <roundcube:label name="sentdate" />
+                                    </option>
+                                    <option value="subject">
+                                        <roundcube:label name="subject" />
+                                    </option>
+                                    <option value="fromto">
+                                        <roundcube:label name="fromto" />
+                                    </option>
+                                    <option value="from">
+                                        <roundcube:label name="from" />
+                                    </option>
+                                    <option value="to">
+                                        <roundcube:label name="to" />
+                                    </option>
+                                    <option value="cc">
+                                        <roundcube:label name="cc" />
+                                    </option>
+                                    <option value="size">
+                                        <roundcube:label name="size" />
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!-- Options pour définir l'ordre de tri -->
+                            <label for="listoptions-sortord" class="fr-label">
+                                <roundcube:label name="listorder" />
+                            </label>
+                            <div>
+                                <select id="listoptions-sortord" name="sort_ord" class="fr-select">
+                                    <option value="ASC">
+                                        <roundcube:label name="asc" />
+                                    </option>
+                                    <option value="DESC">
+                                        <roundcube:label name="desc" />
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <roundcube:if condition="env:threads" />
+                        <div class="form-group">
+                            <!-- Options pour choisir le mode d'affichage des messages : liste simple ou threads -->
+                            <label for="listoptions-threads" class="fr-label">
+                                <roundcube:label name="lmode" />
+                            </label>
+                            <div>
+                                <select id="listoptions-threads" name="mode" class="fr-select">
+                                    <option value="list">
+                                        <roundcube:label name="list" />
+                                    </option>
+                                    <option value="threads">
+                                        <roundcube:label name="threads" />
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <roundcube:endif />
+                        <!-- Bouton Appliquer -->
+                        <div class="form-group">
+                            <button class="fr-btn fr-btn--primary" onclick="applyListOptions()">Appliquer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+
+<script>
+    function applyListOptions() {
+        // Récupérer les valeurs sélectionnées
+        var sortCol = document.getElementById('listoptions-sortcol').value;
+        var sortOrd = document.getElementById('listoptions-sortord').value;
+        var listMode = document.getElementById('listoptions-threads') ? document.getElementById('listoptions-threads').value : 'list';
+
+        // Appliquer les options de tri via rcmail.command
+        rcmail.command('sort', sortCol, sortOrd);
+
+        // Appliquer le mode d'affichage de la liste (threads ou simple liste)
+        rcmail.command('list-mode', listMode);
+
+        // Fermer la modale après application
+        document.getElementById('fr-modal-listoptions').close();
+    }
+</script>
+
+<!-- Modale pour les options de gestion des threads -->
+<dialog aria-labelledby="fr-modal-threadselect-title" id="fr-modal-threadselect" class="fr-modal" role="dialog">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-btn--close fr-btn" aria-controls="fr-modal-threadselect">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-modal-threadselect-title" class="fr-modal__title">
+                            <span class="fr-icon-share-line fr-icon--lg"></span>
+                            Gestion des fils
+                        </h1>
+                        <ul class="menu listing">
+                            <!-- Options pour gérer l'affichage des threads -->
+                            <button type="button" class="fr-btn fr-btn--secondary">Développer les non lus</button>
+                            <button type="button" class="fr-btn fr-btn--secondary">Tout développer</button>
+                            <button type="button" class="fr-btn fr-btn--secondary">Tout réduire</button>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
+
+<!-- Modale pour les options de la boîte aux lettres -->
+<dialog aria-labelledby="fr-modal-mailboxoptions-title" id="fr-modal-mailboxoptions" class="fr-modal" role="dialog">
+    <div class="fr-container fr-container--fluid fr-container-md">
+        <div class="fr-grid-row fr-grid-row--center">
+            <div class="fr-col-12 fr-col-md-4">
+                <div class="fr-modal__body">
+                    <div class="fr-modal__header">
+                        <button class="fr-btn--close fr-btn" aria-controls="fr-modal-mailboxoptions">Fermer</button>
+                    </div>
+                    <div class="fr-modal__content">
+                        <h1 id="fr-modal-mailboxoptions-title" class="fr-modal__title">
+                            <span class="fr-icon-mail-fill"></span>
+                            Boîte aux lettres
+                        </h1>
+                        <ul style="list-style-type:none;">
+                            <!-- Options pour gérer les dossiers de courriel -->
+                            <li><button type="button" class="fr-btn fr-btn--secondary">Compacter</button></li>
+                            <li><button type="button" class="fr-btn fr-btn--secondary">Vider</button></li>
+                            <li><button type="button" class="fr-btn fr-btn--secondary">Tout marquer comme lu</button>
+                            </li>
+                            <li><button type="button" class="fr-btn fr-btn--secondary">Gérer les dossiers</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
