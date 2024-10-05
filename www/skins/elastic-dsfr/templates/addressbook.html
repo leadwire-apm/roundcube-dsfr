@@ -1,0 +1,233 @@
+<roundcube:include file="includes/layout.html" />
+<roundcube:include file="includes/menu.html" />
+
+<h1 class="fr-h1"><roundcube:label name="addressbook" /></h1>
+
+<!-- Main container -->
+<div class="fr-container">
+    <div class="fr-grid-row">
+        <!-- Sidebar for groups and sources -->
+        <div id="layout-sidebar" class="fr-col-12 fr-col-md-4">
+            <nav role="navigation" aria-label="Groupes et répertoires"
+                 class="fr-sidemenu fr-sidemenu--sticky-full-height fr-mb-0-5v" data-fr-js-sidemenu-actionee="true">
+                <div class="fr-sidemenu__inner fr-pt-12v">
+                    <button aria-controls="sidemenu-groups" aria-expanded="false" class="fr-sidemenu__btn"
+                            data-fr-js-collapse-button="true">Groupes</button>
+                    <div id="sidemenu-groups" class="fr-collapse" data-fr-js-collapse="true">
+                        <ul class="fr-sidemenu__list" data-fr-js-sidemenu-list="true">
+                            <li class="fr-sidemenu__item" data-fr-js-sidemenu-item="true">
+                                <div>
+                                    <a class="fr-link" href="#back"><span class="fr-icon-arrow-left-line fr-mr-1v"></span>
+                                        <roundcube:label name="back" /></a>
+                                    <span class="fr-badge"><roundcube:object name="username" /></span>
+                                    <roundcube:button name="groupoptions" type="link" title="arialabelabookgroupoptions"
+                                                      label="actions"
+                                                      class="fr-btn fr-btn--secondary fr-icon-folder-3-line"
+                                                      innerclass="inner" data-popup="groupoptions-menu" />
+                                </div>
+                                <h2 id="aria-label-folderlist" class="fr-h6"><roundcube:label name="arialabelfolderlist" /></h2>
+                                <div id="folderlist-content" class="scroller">
+                                    <roundcube:object name="directorylist" id="directorylist"
+                                                      class="fr-treelist listing iconized" />
+                                    <h3 class="fr-h6"><roundcube:label name="savedsearches" /></h3>
+                                    <roundcube:object name="savedsearchlist" id="savedsearchlist"
+                                                      class="fr-treelist listing iconized" />
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Contacts list and details -->
+        <div id="layout-list-content" class="fr-col-12 fr-col-md-8">
+            <div class="fr-container">
+                <!-- Contacts List -->
+                <div class="fr-grid-row">
+                    <div class="fr-col">
+                        <div id="contacts-header" class="fr-container--fluid fr-background-alt--blue-france fr-pb-2w fr-pt-2w fr-pt-lg-0">
+                            <span class="fr-btns-group--inline-md">
+                                <a class="fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-menu-fill fr-btn--sm" href="#menu">
+                                    <span class="inner"><roundcube:label name="menu" /></span></a>
+                                <a class="fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-folder-3-line fr-btn--sm"
+                                   href="#sidebar"><span class="inner"><roundcube:label name="groups" /></span></a>
+                                <a href="#select"
+                                   class="fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-checkbox-circle-line fr-btn--sm"
+                                   data-popup="listselect-menu" data-toggle-button="list-toggle-button"
+                                   title="<roundcube:label name='select' />"><span class="inner">
+                                        <roundcube:label name="select" /></span></a>
+                                <roundcube:if condition="env:threads" />
+                                <a href="#threads"
+                                   class="fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-share-line fr-btn--sm"
+                                   data-popup="threadselect-menu" title="<roundcube:label name='threads' />"><span
+                                        class="inner"><roundcube:label name="threads" /></span></a>
+                                <roundcube:endif />
+                                <roundcube:object name="listmenulink"
+                                                  class="fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-options-line fr-btn--sm"
+                                                  label="options" innerclass="inner" />
+                                <roundcube:button command="checkmail" type="link"
+                                                  class="fr-btn fr-btn--secondary fr-icon-refresh-line fr-btn--sm"
+                                                  label="refresh" title="checkmail" innerclass="inner" />
+                                <a class="fr-btn fr-btn--secondary fr-icon-menu-fill fr-btn--sm" href="#list-menu">
+                                    <span class="inner"><roundcube:label name="menu" /></span></a>
+                            </span>
+                            <roundcube:object name="searchform" id="searchform" wrapper="searchbar menu"
+                                              label="contactsearchform" buttontitle="findcontacts" options="searchmenu"
+                                              ariatag="h2" />
+                        </div>
+                        <div id="searchmenu" class="fr-hidden searchoptions scroller propform formcontainer"
+                             aria-labelledby="aria-label-search-menu">
+                            <h3 id="aria-label-search-menu" class="fr-h6"><roundcube:label name="searchmod" /></h3>
+                            <div class="formcontent">
+                                <ul class="proplist">
+                                    <li><label><input type="checkbox" name="s_mods[]" value="name"/><roundcube:label name="name" /></label></li>
+                                    <li><label><input type="checkbox" name="s_mods[]" value="firstname"/><roundcube:label
+                                            name="firstname" /></label></li>
+                                    <li><label><input type="checkbox" name="s_mods[]" value="surname"/><roundcube:label
+                                            name="surname" /></label></li>
+                                    <li><label><input type="checkbox" name="s_mods[]" value="email"/><roundcube:label name="email" /></label></li>
+                                    <li><label><input type="checkbox" name="s_mods[]" value="*"/><roundcube:label name="allfields" /></label></li>
+                                </ul>
+                            </div>
+                            <div class="formbuttons">
+                                <button type="button" class="fr-btn fr-btn--primary icon search"
+                                        onclick="return rcmail.command('search')"><roundcube:label name="search" /></button>
+                            </div>
+                        </div>
+                        <div id="messagelist-content" class="scroller">
+                            <h2 id="aria-label-messagelist" class="fr-h6"><roundcube:label name="contacts" /></h2>
+                            <roundcube:object name="addresslist" id="contacts-table"
+                                              class="listing iconized contactlist fr-listing"
+                                              noheader="true" role="listbox" data-list="contact_list"
+                                              data-label-msg="listempty" data-label-ext="listusebutton"
+                                              data-create-command="add" />
+                        </div>
+                        <roundcube:include file="includes/pagenav.html" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Details Frame -->
+        <div id="layout-content" class="fr-col-12 fr-col-md-8">
+            <h2 id="aria-label-toolbar" class="fr-h6"><roundcube:label name="arialabeltoolbar" /></h2>
+            <div class="fr-header" role="toolbar" aria-labelledby="aria-label-toolbar">
+                <a class="fr-link" href="#back"><span class="fr-icon-arrow-left-line fr-mr-1v"></span>
+                    <roundcube:label name="back" /></a>
+                <span class="header-title"></span>
+                <div id="addressbooktoolbar" class="fr-toolbar menu">
+                    <roundcube:button command="add" type="link" class="fr-btn fr-btn--primary create disabled"
+                                      classAct="create" label="create" title="newcontact" innerclass="inner" data-fab="true"/>
+                    <roundcube:button command="print" type="link" data-hidden="small"
+                                      class="fr-btn fr-btn--primary print disabled" classAct="print" label="print"
+                                      title="printcontact" innerclass="inner"/>
+                    <roundcube:button command="delete" type="link" class="fr-btn fr-btn--primary delete disabled"
+                                      classAct="delete" label="delete" title="deletecontact" innerclass="inner"/>
+                    <span class="fr-space"></span>
+                    <roundcube:button command="advanced-search" type="link"
+                                      class="fr-btn fr-btn--primary search disabled" classAct="search" label="search"
+                                      title="advsearch" innerclass="inner"/>
+                    <roundcube:container name="toolbar" id="addressbooktoolbar"/>
+                    <roundcube:button command="import" type="link" class="fr-btn fr-btn--primary import disabled"
+                                      classAct="import" label="import" title="importcontacts" innerclass="inner"/>
+                    <span class="fr-dropbutton">
+                        <roundcube:button command="export" type="link"
+                                          class="fr-btn fr-btn--primary export disabled" classAct="export"
+                                          label="export" title="exportvcards" innerclass="inner"/>
+                        <a href="#export" class="fr-btn fr-btn--primary dropdown" data-popup="export-menu">
+                            <span class="inner"><roundcube:label name="arialabelcontactexportoptions" /></span>
+                        </a>
+                    </span>
+                    <roundcube:button name="contactmenulink" id="contactmenulink" type="link"
+                                      class="fr-btn fr-btn--primary more" label="more" title="moreactions"
+                                      data-popup="contact-menu" innerclass="inner"/>
+                </div>
+            </div>
+            <h2 id="aria-label-contact-frame" class="fr-h6"><roundcube:label name="contactproperties" /></h2>
+            <div class="fr-iframe-wrapper">
+                <roundcube:object name="contentframe" id="contact-frame" src="env:blankpage" title="contactproperties"
+                                  aria-labelledby="aria-label-contact-frame"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Popup Menus -->
+<div id="export-menu" class="popupmenu">
+    <h3 id="aria-label-export-menu" class="fr-h6"><roundcube:label name="arialabelcontactexportoptions" /></h3>
+    <ul class="fr-menu listing" role="menu" aria-labelledby="aria-label-export-menu">
+        <roundcube:button type="link-menuitem" command="export" label="exportall" prop="sub"
+                          class="fr-btn export all disabled" classAct="export all active"/>
+        <roundcube:button type="link-menuitem" command="export-selected" label="exportsel" prop="sub"
+                          class="fr-btn export select disabled" classAct="export select active"/>
+    </ul>
+</div>
+
+<div id="groupoptions-menu" class="popupmenu">
+    <h3 id="aria-label-groupoptions-menu" class="fr-h6"><roundcube:label name="arialabelabookgroupoptions" /></h3>
+    <ul class="fr-menu listing" role="menu" aria-labelledby="aria-label-groupoptions-menu">
+        <roundcube:button type="link-menuitem" command="group-create" title="newgroup" label="addgroup"
+                          class="fr-btn create disabled" classAct="create active"/>
+        <roundcube:button type="link-menuitem" command="group-rename" label="grouprename"
+                          class="fr-btn group rename disabled" classAct="group rename active"/>
+        <roundcube:button type="link-menuitem" command="group-delete" label="groupdelete"
+                          class="fr-btn group delete disabled" classAct="group delete active"/>
+        <roundcube:button type="link-menuitem" command="search-create" label="searchsave"
+                          class="fr-btn search disabled" classAct="search active"/>
+        <roundcube:button type="link-menuitem" command="search-delete" label="searchdelete"
+                          class="fr-btn search delete disabled" classAct="search delete active"/>
+    </ul>
+</div>
+
+<div id="listselect-menu" class="popupmenu">
+    <h3 id="aria-label-listselect-menu" class="fr-h6"><roundcube:label name="arialabellistselectmenu" /></h3>
+    <ul class="fr-menu listing" role="menu" aria-labelledby="aria-label-listselect-menu">
+        <roundcube:button type="link-menuitem" label="selection" class="fr-btn selection disabled"
+                          classAct="selection active" name="list-toggle-button" id="list-toggle-button"
+                          onclick="UI.toggle_list_selection(this, 'contacts-table')"/>
+        <roundcube:button command="select-all" type="link-menuitem" prop="page" label="currpage"
+                          class="fr-btn select page disabled" classAct="select page active"/>
+        <roundcube:button command="select-all" type="link-menuitem" prop="invert" label="invert"
+                          class="fr-btn select invert disabled" classAct="select invert active"/>
+        <roundcube:button command="select-none" type="link-menuitem" label="none"
+                          class="fr-btn select none disabled" classAct="select none active"/>
+    </ul>
+</div>
+
+<div id="dragcontact-menu" class="popupmenu">
+    <h3 id="aria-label-dragcontact-menu" class="fr-h6"><roundcube:label name="arialabeldropactionmenu" /></h3>
+    <ul class="fr-menu listing" role="menu" aria-labelledby="aria-label-dragcontact-menu">
+        <roundcube:button type="link-menuitem" command="move" onclick="return rcmail.drag_menu_action('move')"
+                          label="move" class="fr-btn disabled" classAct="active"/>
+        <roundcube:button type="link-menuitem" command="copy" onclick="return rcmail.drag_menu_action('copy')"
+                          label="copy" class="fr-btn disabled" classAct="active"/>
+    </ul>
+</div>
+
+<div id="contact-menu" class="popupmenu">
+    <h3 id="aria-label-contact-menu" class="fr-h6"><roundcube:label name="arialabelmorecontactactions" /></h3>
+    <ul class="fr-menu listing" role="menu" aria-labelledby="aria-label-contact-menu">
+        <roundcube:if condition="env:qrcode" />
+        <roundcube:button type="link-menuitem" command="qrcode" label="qrcode" class="fr-btn qrcode disabled"
+                          classAct="qrcode active"/>
+        <roundcube:endif />
+        <roundcube:button type="link-menuitem" command="group-assign-selected" label="groupassign"
+                          class="fr-btn assigngroup disabled" classAct="assigngroup active"
+                          innerclass="folder-selector-link" aria-haspopup="true"/>
+        <roundcube:button type="link-menuitem" command="group-remove-selected" label="groupremove"
+                          class="fr-btn removegroup disabled" classAct="removegroup active"/>
+        <roundcube:if condition="env:contact_move_enabled" />
+        <roundcube:button type="link-menuitem" command="move" label="moveto"
+                          class="fr-btn move disabled" classAct="move active" innerclass="folder-selector-link"
+                          aria-haspopup="true"/>
+        <roundcube:endif />
+        <roundcube:if condition="env:contact_copy_enabled" />
+        <roundcube:button type="link-menuitem" command="copy" label="copyto"
+                          class="fr-btn copy disabled" classAct="copy active" innerclass="folder-selector-link"
+                          aria-haspopup="true"/>
+        <roundcube:endif />
+    </ul>
+</div>
+
+<roundcube:include file="includes/footer.html" />

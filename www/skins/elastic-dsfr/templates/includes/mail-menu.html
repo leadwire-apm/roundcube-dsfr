@@ -1,0 +1,109 @@
+<!-- Toolbar with Action Buttons -->
+<div id="mailtoolbar" class="fr-container" role="toolbar">
+    <div class="fr-grid-row">
+        <div class="fr-col">
+            <!-- Icone -->
+            <span class="fr-icon-mail-open-fill" aria-hidden="true"></span>&emsp; 
+            <!-- Compose Button -->
+            <button class="fr-btn fr-btn--sm fr-btn--icon-left fr-icon-draft-fill" onclick="rcmail.command('compose')">Nouveau</button>
+            <!-- Reply Button -->
+            <button class="fr-btn fr-btn--sm fr-btn--icon-left fr-icon-arrow-left-line" onclick="rcmail.command('reply')">Répondre</button>
+            <button class="fr-btn fr-btn--sm fr-btn--icon-left fr-icon-arrow-left-s-line-double" onclick="rcmail.command('reply-all')">Répondre à tous</button>
+            <!-- Toggle Buttons for Additional Options -->
+            <button class="fr-btn fr-btn--sm fr-icon-arrow-down-s-line" onclick="toggleDiv('replyall-options');">Répondre à tous</button>
+            <button class="fr-btn fr-btn--sm fr-btn--icon-left fr-icon-arrow-right-line" onclick="rcmail.command('forward-inline');">Transférer</button>
+            <button class="fr-btn fr-btn--sm fr-icon-arrow-down-s-line" onclick="toggleDiv('forward-options');">Forward Options</button>
+            <button class="fr-btn fr-btn--sm fr-icon-more-fill" onclick="toggleDiv('more-actions');">Actions</button>
+            <!-- Delete and Print Buttons -->
+            <button class="fr-btn fr-btn--sm  fr-icon-delete-fill" onclick="rcmail.command('delete')">Supprimer</button>
+            <button class="fr-btn fr-btn--sm  fr-icon-printer-fill" onclick="rcmail.command('print')">Imprimier</button>
+        </div>
+    </div>
+</div>
+
+<!-- Divs for Action Options, Initially Hidden -->
+<div id="replyall-options" style="display: none;">
+    <div class="fr-container">
+        <div class="fr-grid-row">
+        <div class="fr-col">
+        <button class="fr-btn fr-btn--sm fr-btn--tertiary" onclick="rcmail.command('reply-all')">Répondre à
+            tous</button>
+        <button class="fr-btn fr-btn--sm fr-btn--tertiary" onclick="rcmail.command('reply-list')">Répondre à
+            liste</button>
+        <button class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline fr-icon-close-line" onclick="toggleDiv('replyall-options');">Fermer</button>
+    </div>
+    </div>
+    </div>
+</div>
+
+<div id="forward-options" style="display: none;">
+    <div class="fr-container">
+        <button class="fr-btn fr-btn--sm fr-btn--tertiary" onclick="rcmail.command('forward-inline')">Transférer
+            </button>
+        <button class="fr-btn fr-btn--sm fr-btn--tertiary" onclick="rcmail.command('forward-attachment')">Transférer
+            comme pièce jointe</button>
+        <button class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline fr-icon-close-line" onclick="toggleDiv('forward-options');">Close</button>
+    </div>
+</div>
+
+<div id="more-actions" style="display: none;">
+    <div class="fr-container">
+        <button class="fr-btn fr-btn--sm fr-btn--tertiary" onclick="rcmail.command('open')">Ouvrir dans un
+            nouvel</button>
+        <button class="fr-btn fr-btn--sm fr-btn--tertiary" onclick="rcmail.command('download')">Télécharger</button>
+        <button class="fr-btn fr-btn--sm fr-btn--tertiary-no-outline fr-icon-close-line" onclick="toggleDiv('more-actions');">Close</button>
+    </div>
+</div>
+
+<script>
+    function toggleDiv(divId) {
+        var div = document.getElementById(divId);
+        div.style.display = (div.style.display === 'none' || div.style.display === '') ? 'block' : 'none';
+    }
+</script>
+
+
+<!-- Reply All Modal -->
+<div id="replyall-modal" class="fr-modal" role="dialog" aria-hidden="true">
+    <div class="fr-modal__body">
+        <button class="fr-btn fr-btn--sm fr-btn fr-btn--sm--close"
+            onclick="toggleModal('replyall-modal')">Close</button>
+        <h2 class="fr-modal__title">Reply All Options</h2>
+        <!-- Buttons for actions in the modal -->
+        <button class="fr-btn fr-btn--sm" onclick="rcmail.command('reply-all')">Reply All</button>
+        <button class="fr-btn fr-btn--sm" onclick="rcmail.command('reply-list')">Reply to List</button>
+    </div>
+</div>
+
+<!-- Forward Modal -->
+<div id="forward-modal" class="fr-modal" role="dialog" aria-hidden="true">
+    <div class="fr-modal__body">
+        <button class="fr-btn fr-btn--sm fr-btn fr-btn--sm--close" onclick="toggleModal('forward-modal')">Close</button>
+        <h2 class="fr-modal__title">Forward Options</h2>
+        <!-- Buttons for actions in the modal -->
+        <button class="fr-btn fr-btn--sm" onclick="rcmail.command('forward-inline')">Forward Inline</button>
+        <button class="fr-btn fr-btn--sm" onclick="rcmail.command('forward-attachment')">Forward as Attachment</button>
+    </div>
+</div>
+
+<!-- More Actions Modal -->
+<div id="more-actions-modal" class="fr-modal" role="dialog" aria-hidden="true">
+    <div class="fr-modal__body">
+        <button class="fr-btn fr-btn--sm fr-btn fr-btn--sm--close"
+            onclick="toggleModal('more-actions-modal')">Close</button>
+        <h2 class="fr-modal__title">More Actions</h2>
+        <!-- Example additional actions -->
+        <button class="fr-btn fr-btn--sm" onclick="rcmail.command('open')">Open in New Window</button>
+        <button class="fr-btn fr-btn--sm" onclick="rcmail.command('download')">Download</button>
+    </div>
+</div>
+
+<script>
+    // Function to toggle the visibility of modals
+    function toggleModal(modalId) {
+        var modal = document.getElementById(modalId);
+        var isHidden = modal.getAttribute('aria-hidden') === 'true';
+        modal.style.display = isHidden ? 'block' : 'none';
+        modal.setAttribute('aria-hidden', String(!isHidden));
+    }
+</script>
