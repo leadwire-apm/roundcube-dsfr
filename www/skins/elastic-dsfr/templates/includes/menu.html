@@ -189,7 +189,8 @@
         function setThemes(theme) {
             // Mettre à jour DSFR
             document.documentElement.setAttribute('data-fr-theme', theme);
-            
+
+
             // Mettre à jour Elastic
             document.body.setAttribute('data-theme', theme);
 
@@ -199,8 +200,13 @@
             // Ajouter ou supprimer la classe dark-mode sur le <html>
             if (theme === 'dark') {
                 document.documentElement.classList.add('dark-mode');
+                if(document.getElementById('messagecontframe')) document.getElementById('messagecontframe').contentWindow.document.documentElement.classList.add('dark-mode');
+                if(document.getElementById('contact-frame')) document.getElementById('contact-frame').contentWindow.document.documentElement.classList.add('dark-mode');
+
             } else {
                 document.documentElement.classList.remove('dark-mode');
+                if(document.getElementById('messagecontframe'))document.getElementById('messagecontframe').contentWindow.document.documentElement.classList.remove('dark-mode');
+                if(document.getElementById('contact-frame'))document.getElementById('contact-frame').contentWindow.document.documentElement.classList.remove('dark-mode');
             }
         }
 
