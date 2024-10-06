@@ -12580,6 +12580,7 @@ var AgendaView = /** @class */ (function (_super) {
         if (!isAuto) { // should we force dimensions of the scroll container?
             scrollerHeight = this.computeScrollerHeight(totalHeight);
             this.scroller.setHeight(scrollerHeight);
+            this.scroller.setHeight('unset');
             scrollbarWidths = this.scroller.getScrollbarWidths();
             if (scrollbarWidths.left || scrollbarWidths.right) { // using scrollbars?
                 // make the all-day and header rows lines up
